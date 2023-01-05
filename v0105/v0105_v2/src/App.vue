@@ -1,9 +1,9 @@
 <template>
-    <WrapperCountComponent></WrapperCountComponent>
+    <MemoWrapper></MemoWrapper>
 </template>
 
 <script setup>
-import WrapperCountComponent from './components/count/v2/WrapperCountComponent.vue';
+import MemoWrapper from './memo/memoWrapper.vue';
 
 
 
