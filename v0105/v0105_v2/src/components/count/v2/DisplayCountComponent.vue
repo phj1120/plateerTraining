@@ -1,5 +1,7 @@
 <template>
     {{ props.count.number }}
+    <!-- {{ evenOrOdd }} -->
+
 </template>
 
 <script setup>

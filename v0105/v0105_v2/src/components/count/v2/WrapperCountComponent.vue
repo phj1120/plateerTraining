@@ -3,6 +3,9 @@
         <DisplayCountComponent :count="count"></DisplayCountComponent>
     </div>
     <div>
+        <OddOrEvenDisplayComponent :count="count"></OddOrEvenDisplayComponent>
+    </div>
+    <div>
         <ButtonCountCompnent @change="handleClickChange"></ButtonCountCompnent>
     </div>
 </template>
@@ -11,6 +14,7 @@
 import { reactive } from 'vue';
 import ButtonCountCompnent from './ButtonCountCompnent.vue';
 import DisplayCountComponent from './DisplayCountComponent.vue';
+import OddOrEvenDisplayComponent from './OddOrEvenDisplayComponent.vue';
 
 const count = reactive({ "number": 10 })
 
