@@ -1,0 +1,24 @@
+{
+  "todos": [
+    {
+      "title": "MyTitle..",
+      "writer": "user123",
+      "id": 20
+    },
+    {
+      "title": "MyTitle.. ",
+      "writer": "user123",
+      "id": 22
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
