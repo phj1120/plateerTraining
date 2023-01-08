@@ -21,20 +21,45 @@
       <td>{{ todo.id }}</td>
       <td>{{ todo.title }}</td>
       <td>{{ todo.writer }}</td>
-      <v-btn @click="emits('handelClickRemove',todo.id)">x</v-btn>
+      <v-btn @click="handelClickRemove(todo.id)">x</v-btn>
     </tr>
     </tbody>
   </v-table>
 
   <TodoModal :removeDialog="removeDialog"
-             @handleClickRemoveAgree="emits('handleClickRemoveAgree', removeDialog.id)"></TodoModal>
+             @handleClickRemoveAgree="handleClickRemoveAgree(removeDialog.id)"></TodoModal>
 </template>
 
 <script setup>
 import TodoModal from "@/components/todo/TodoModal.vue";
+import {deleteTodo} from "@/apis/TodoApis";
+import {ref} from "vue";
 
-const props = defineProps(['todos', 'removeDialog'])
-const emits = defineEmits(['handleClickRemoveAgree', 'handelClickRemove'])
+const props = defineProps(['todos'])
+const emits = defineEmits(['refreshTodos'])
+const removeDialog = ref({id: '', open: false})
+
+const handelClickRemove = (id) => {
+  removeTodo(id)
+}
+
+const removeTodo = (id) => {
+  removeDialog.value.id = id
+  removeDialog.value.open = true
+}
+
+
+const handleClickRemoveAgree = (id) => {
+  removeAgree(id)
+}
+
+const removeAgree = (id) => {
+  deleteTodo(id).then(() => {
+    emits('refreshTodos')
+    removeDialog.value.open = false
+  })
+}
+
 </script>
 
 <style scoped>

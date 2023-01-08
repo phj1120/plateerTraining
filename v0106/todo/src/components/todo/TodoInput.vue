@@ -16,7 +16,7 @@
           ></v-text-field>
         </v-col>
         <v-col>
-          <v-btn @click="emits('clickAdd')">Add</v-btn>
+          <v-btn @click="handelClickAdd()">Add</v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -24,8 +24,26 @@
 </template>
 
 <script setup>
-const props = defineProps(['todo'])
-const emits = defineEmits(['clickAdd'])
+import {postTodo} from "@/apis/TodoApis";
+import {ref} from "vue";
+
+const todo = ref({title: '', writer: ''})
+const emits = defineEmits(['refreshTodos'])
+
+const handelClickAdd = () => {
+  addTodo()
+}
+
+const addTodo = () => {
+  postTodo({writer: todo.value.writer, title: todo.value.title})
+    .then(() => {
+        emits('refreshTodos')
+        todo.value = {title: '', writer: ''}
+      }
+    );
+}
+
+
 </script>
 
 
