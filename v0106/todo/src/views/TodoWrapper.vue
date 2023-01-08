@@ -5,20 +5,31 @@
 
 <script setup>
 import {ref} from "vue";
+import {deleteTodo, getTodos, postTodo} from "@/apis/TodoApis";
 import TodoInput from "@/components/todo/TodoInput.vue";
 import TodoList from "@/components/todo/TodoList.vue";
 
-const id = ref(1)
-const todo = ref({id: id.value, title: '', writer: ''})
+const todo = ref({title: '', writer: ''})
 const todos = ref([])
+
+const refreshTodos = () => {
+  getTodos().then((result) => {
+    todos.value = result
+  })
+}
+refreshTodos()
 
 const handelClickAdd = () => {
   addTodo()
 }
 
 const addTodo = () => {
-  todos.value.push({id: id.value++, writer: todo.value.writer, title: todo.value.title})
-  todo.value = {}
+  postTodo({writer: todo.value.writer, title: todo.value.title})
+    .then(() => {
+        refreshTodos()
+        todo.value = {title: '', writer: ''}
+      }
+    );
 }
 
 const handelClickRemove = (id) => {
@@ -26,8 +37,9 @@ const handelClickRemove = (id) => {
 }
 
 const removeTodo = (id) => {
-  console.log(id)
-  todos.value = todos.value.filter(todo => todo.id !== id)
+  deleteTodo(id).then(() => {
+    refreshTodos()
+  })
 }
 </script>
 
