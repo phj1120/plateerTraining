@@ -25,3 +25,11 @@ export const deleteTodo = async (id) => {
     }
   )
 }
+
+export const putTodo = async (id, todo) => {
+  return await axios.put(uri + id, todo).then(
+    (response) => {
+      return response.data
+    }
+  )
+}
