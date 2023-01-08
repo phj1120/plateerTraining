@@ -4,13 +4,13 @@
       <v-row>
         <v-col cols="6" md="4">
           <v-text-field
-            v-model="props.todo.title"
+            v-model="todo.title"
             label="TITLE"
           ></v-text-field>
         </v-col>
         <v-col cols="6" md="4">
           <v-text-field
-            v-model="props.todo.writer"
+            v-model="todo.writer"
             label="WRITER"
             required
           ></v-text-field>
