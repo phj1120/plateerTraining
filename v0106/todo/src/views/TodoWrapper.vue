@@ -9,7 +9,7 @@ import TodoInput from "@/components/todo/TodoInput.vue";
 import TodoList from "@/components/todo/TodoList.vue";
 
 const id = ref(1)
-const todo = ref({id: id.value, content: '', writer: ''})
+const todo = ref({id: id.value, title: '', writer: ''})
 const todos = ref([])
 
 const handelClickAdd = () => {
@@ -17,7 +17,8 @@ const handelClickAdd = () => {
 }
 
 const addTodo = () => {
-  todos.value.push({id: id.value++, writer: todo.value.writer, content: todo.value.content})
+  todos.value.push({id: id.value++, writer: todo.value.writer, title: todo.value.title})
+  todo.value = {}
 }
 
 const handelClickRemove = (id) => {

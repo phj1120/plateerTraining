@@ -6,7 +6,7 @@
         ID
       </th>
       <th class="text-left">
-        CONTENT
+        TITLE
       </th>
       <th class="text-left">
         WRITER
@@ -19,7 +19,7 @@
       :key="todo.id"
     >
       <td>{{ todo.id }}</td>
-      <td>{{ todo.content }}</td>
+      <td>{{ todo.title }}</td>
       <td>{{ todo.writer }}</td>
       <v-btn @click="emits('clickRemove',todo.id)">x</v-btn>
 
