@@ -1,6 +1,8 @@
 <template>
   <TodoInput :todo="todo" @clickAdd="handelClickAdd()"></TodoInput>
-  <TodoList :todos="todos" @clickRemove="handelClickRemove"></TodoList>
+  <TodoList :todos="todos" :removeId="removeId" :removeDialog="removeDialog"
+            @handleClickRemoveAgree="handleClickRemoveAgree"
+            @handelClickRemove="handelClickRemove"></TodoList>
 </template>
 
 <script setup>
@@ -11,6 +13,8 @@ import TodoList from "@/components/todo/TodoList.vue";
 
 const todo = ref({title: '', writer: ''})
 const todos = ref([])
+const removeDialog = ref({open: false})
+const removeId = ref()
 
 const refreshTodos = () => {
   getTodos().then((result) => {
@@ -37,10 +41,21 @@ const handelClickRemove = (id) => {
 }
 
 const removeTodo = (id) => {
+  removeId.value = id
+  removeDialog.value.open = true
+}
+
+const handleClickRemoveAgree = (id) => {
+  removeAgree(id)
+}
+
+const removeAgree = (id) => {
   deleteTodo(id).then(() => {
     refreshTodos()
+    removeDialog.value.open = false
   })
 }
+
 </script>
 
 <style scoped>

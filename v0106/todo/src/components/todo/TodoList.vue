@@ -21,16 +21,20 @@
       <td>{{ todo.id }}</td>
       <td>{{ todo.title }}</td>
       <td>{{ todo.writer }}</td>
-      <v-btn @click="emits('clickRemove',todo.id)">x</v-btn>
-
+      <v-btn @click="emits('handelClickRemove',todo.id)">x</v-btn>
     </tr>
     </tbody>
   </v-table>
+
+  <TodoModal :removeId="removeId" :removeDialog="removeDialog"
+             @handleClickRemoveAgree="emits('handleClickRemoveAgree', removeId)"></TodoModal>
 </template>
 
 <script setup>
-const props = defineProps(['todos'])
-const emits = defineEmits(['clickRemove'])
+import TodoModal from "@/components/todo/TodoModal.vue";
+
+const props = defineProps(['removeId', 'todos', 'removeDialog'])
+const emits = defineEmits(['handleClickRemoveAgree', 'handelClickRemove'])
 </script>
 
 <style scoped>
