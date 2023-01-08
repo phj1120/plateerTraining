@@ -26,14 +26,14 @@
     </tbody>
   </v-table>
 
-  <TodoModal :removeId="removeId" :removeDialog="removeDialog"
-             @handleClickRemoveAgree="emits('handleClickRemoveAgree', removeId)"></TodoModal>
+  <TodoModal :removeDialog="removeDialog"
+             @handleClickRemoveAgree="emits('handleClickRemoveAgree', removeDialog.id)"></TodoModal>
 </template>
 
 <script setup>
 import TodoModal from "@/components/todo/TodoModal.vue";
 
-const props = defineProps(['removeId', 'todos', 'removeDialog'])
+const props = defineProps(['todos', 'removeDialog'])
 const emits = defineEmits(['handleClickRemoveAgree', 'handelClickRemove'])
 </script>
 

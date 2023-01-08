@@ -1,6 +1,6 @@
 <template>
   <TodoInput :todo="todo" @clickAdd="handelClickAdd()"></TodoInput>
-  <TodoList :todos="todos" :removeId="removeId" :removeDialog="removeDialog"
+  <TodoList :todos="todos" :removeDialog="removeDialog"
             @handleClickRemoveAgree="handleClickRemoveAgree"
             @handelClickRemove="handelClickRemove"></TodoList>
 </template>
@@ -13,8 +13,7 @@ import TodoList from "@/components/todo/TodoList.vue";
 
 const todo = ref({title: '', writer: ''})
 const todos = ref([])
-const removeDialog = ref({open: false})
-const removeId = ref()
+const removeDialog = ref({id: '', open: false})
 
 const refreshTodos = () => {
   getTodos().then((result) => {
@@ -41,7 +40,7 @@ const handelClickRemove = (id) => {
 }
 
 const removeTodo = (id) => {
-  removeId.value = id
+  removeDialog.value.id = id
   removeDialog.value.open = true
 }
 

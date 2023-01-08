@@ -20,7 +20,7 @@
           <v-btn
             color="green-darken-1"
             variant="text"
-            @click="emits('handleClickRemoveAgree', removeId)"
+            @click="emits('handleClickRemoveAgree', id)"
           >
             Agree
           </v-btn>
@@ -33,10 +33,12 @@
 <script setup>
 import {toRef} from "vue";
 
-const props = defineProps(['removeId', 'removeDialog'])
+const props = defineProps(['removeDialog'])
 const emits = defineEmits(['handleClickRemoveAgree'])
 
 const dialog = toRef(props.removeDialog, 'open')
+const id = toRef(props.removeDialog, 'id')
+
 </script>
 
 <style scoped>
