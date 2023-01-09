@@ -2,6 +2,7 @@
   <v-app id="inspire">
     <v-app-bar flat>
       <v-container class="fill-height d-flex align-center">
+        <v-btn @click="moveTodoListPage">목록으로</v-btn>
         <v-spacer></v-spacer>
         <v-responsive max-width="260">
         </v-responsive>
@@ -33,9 +34,12 @@
   </v-app>
 </template>
 
-<script>
-export default {
-  name: "ReadWriteModify"
+<script setup>
+import {useRouter} from "vue-router";
+
+const router = useRouter()
+const moveTodoListPage = () => {
+  router.push({name: "TodoListPage"})
 }
 </script>
 
