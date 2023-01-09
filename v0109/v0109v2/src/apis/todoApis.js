@@ -8,9 +8,7 @@ export const getTodoList = async () => {
 }
 
 export const getTodo = async (id) => {
-  console.log(id)
   const result = await axios.get(uri + id)
-
 
   return result.data
 }
@@ -21,9 +19,14 @@ export const postTodo = async (todo) => {
   return result.data
 }
 
+export const putTodo = async (todo) => {
+  const result = await axios.put(uri + todo.id, todo)
+  return result.data;
+}
 
-export const deleteTodo = async (id)=>{
-  const result = await axios.delete(uri+id)
+
+export const deleteTodo = async (id) => {
+  const result = await axios.delete(uri + id)
 
   return result.data
 }

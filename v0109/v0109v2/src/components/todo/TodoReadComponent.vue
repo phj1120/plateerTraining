@@ -1,5 +1,7 @@
 <template>
   <h1>Todo Read Component</h1>
+  <v-btn @click="handleClickModify(id)">수정</v-btn>
+  <v-btn @click="handleClickDelete(id)">삭제</v-btn>
   <v-table>
     <tbody>
     <tr>
@@ -17,17 +19,31 @@
 <script setup>
 
 import {useRoute} from "vue-router";
-import {getTodo} from "@/apis/todoApis";
+import {deleteTodo, getTodo} from "@/apis/todoApis";
 import {ref} from "vue";
+import Swal from "sweetalert2";
+
+const emits = defineEmits(['MoveTodoListPage', 'MoveTodoModifyPage'])
 
 const route = useRoute()
 const {id} = route.params
-
 const todo = ref({})
-getTodo(id).then((result) => {
-  todo.value = result
-  console.log(result)
-})
+todo.value = await getTodo(id)
+
+const handleClickModify = (id) => {
+  emits('MoveTodoModifyPage', id)
+}
+
+const handleClickDelete = async (id) => {
+  await deleteTodo(id)
+  await Swal.fire(
+    'Good job!',
+    '삭제 성공',
+    'success'
+  )
+  emits('MoveTodoListPage')
+}
+
 
 </script>
 

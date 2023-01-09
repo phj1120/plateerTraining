@@ -32,6 +32,11 @@ const routes = [
         path: 'add',
         name: 'TodoAddPage',
         component: () => import('@/views/todo/TodoAddPage.vue')
+      },
+      {
+        path: 'modify/:id',
+        name: 'TodoModifyPage',
+        component: () => import('@/views/todo/TodoModifyPage.vue')
       }
     ]
   },
