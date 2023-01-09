@@ -20,3 +20,10 @@ export const postTodo = async (todo) => {
 
   return result.data
 }
+
+
+export const deleteTodo = async (id)=>{
+  const result = await axios.delete(uri+id)
+
+  return result.data
+}

@@ -1,11 +1,13 @@
 <template>
   <h1>Todo List Component</h1>
-  <ul>
-    <li v-for="todo in todos" :key="todo.id" @click="emits('handleClickTodo', todo.id)">
-      {{ todo }}
-    </li>
-  </ul>
-  <v-btn @click="emits('handleClickAdd')">+</v-btn>
+  <template v-for="todo in todos"
+            :key="todo.id">
+    <v-list-item @click="emits('handleClickTodo', todo.id)">
+      <v-list-item-title>{{ todo.title }}</v-list-item-title>
+      <v-list-item-subtitle>{{ todo.writer }}</v-list-item-subtitle>
+    </v-list-item>
+    <v-divider></v-divider>
+  </template>
 </template>
 
 <script setup>
