@@ -4,6 +4,7 @@ import lombok.*;
 import org.parkh.b1.common.domain.BaseEntity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "tbl_todo") // DB 안 꼬이게 하려면 이게 낫더라...
@@ -22,4 +23,11 @@ public class Todo extends BaseEntity {
     private String title;
 
     private String writer;
+
+    private LocalDate dueDate;
+
+    private boolean complete;
+
+//    @OneToMany // 테이블 하나 더 생성 됨.
+//    private Set<Reply> replySet;
 }

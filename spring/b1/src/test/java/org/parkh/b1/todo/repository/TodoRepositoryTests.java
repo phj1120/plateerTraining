@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.time.LocalDate;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -21,10 +22,13 @@ class TodoRepositoryTests {
 
     @Test
     public void testInsert() {
+        LocalDate date = LocalDate.now().minusDays(50);
+
         IntStream.rangeClosed(1, 100).forEach((i) -> {
             Todo todo = Todo.builder()
                     .title("Title" + i)
                     .writer("user" + i)
+                    .dueDate(date.plusDays(i))
                     .build();
             log.info(todoRepository.save(todo));
         });
@@ -51,4 +55,27 @@ class TodoRepositoryTests {
         log.info(todos.getNumber());
     }
 
+    @Test
+    public void testListWithCount() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("id").descending());
+
+        Page<Object[]> objects = todoRepository.listWithCount(pageable);
+        log.info(objects);
+    }
+
+    @Test
+    public void testQueryDsl() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("id").descending());
+        Page<Todo> todos = todoRepository.searchListByKeyword(pageable, "5");
+
+        log.info(todos);
+    }
+
+    @Test
+    public void testQueryDslWithReadCount() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("id").descending());
+        Page<Object[]> result = todoRepository.searchListWithCount(pageable);
+
+        log.info(result);
+    }
 }
