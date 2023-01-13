@@ -2,6 +2,7 @@ package org.parkh.b1.todo.repository.search;
 
 import org.parkh.b1.todo.domain.Todo;
 import org.parkh.b1.todo.dto.SearchConditionDto;
+import org.parkh.b1.todo.dto.TodoDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

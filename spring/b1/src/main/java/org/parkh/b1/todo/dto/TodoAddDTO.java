@@ -5,13 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TodoListDTO {
-    private Long id;
+public class TodoAddDTO {
     private String title;
     private String writer;
-    private long replyCount;
+
+    private LocalDate dueDate;
 }
