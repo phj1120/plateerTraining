@@ -19,7 +19,7 @@ public class TodoController {
     private final TodoService todoService;
 
     @GetMapping
-    public PageResultDTO<TodoListDTO> getTodoListDTO(@Valid @RequestBody SearchConditionDTO dto, BindingResult bindingResult) {
+    public PageResultDTO<TodoListDTO> getTodoListDTO(@Valid @ModelAttribute SearchConditionDTO dto, BindingResult bindingResult) {
 
         return todoService.getTodos(dto);
     }

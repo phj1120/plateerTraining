@@ -7,6 +7,7 @@ import org.parkh.b1.common.domain.dto.PageResultDTO;
 import org.parkh.b1.common.domain.dto.ResultDTO;
 import org.parkh.b1.todo.domain.Todo;
 import org.parkh.b1.todo.dto.*;
+import org.parkh.b1.todo.repository.ReplyRepository;
 import org.parkh.b1.todo.repository.TodoRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TodoServiceImpl implements TodoService {
     private final TodoRepository todoRepository;
+    private final ReplyRepository replyRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -75,7 +77,13 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public ResultDTO<TodoDeleteDto> remove(long id) {
         try {
-            todoRepository.deleteById(id);
+            // 관련 된 댓글 삭제
+            Todo todo = todoRepository.findById(id)
+                    .orElseThrow(() -> {
+                        throw new RuntimeException();
+                    });
+            replyRepository.deleteByTodo(todo);
+            todoRepository.delete(todo);
         } catch (EmptyResultDataAccessException exception) {
             throw new RuntimeException();
         }
