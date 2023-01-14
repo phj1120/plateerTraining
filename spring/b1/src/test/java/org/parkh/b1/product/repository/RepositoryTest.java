@@ -25,9 +25,9 @@ class RepositoryTest {
 
     @Test
     public void initProduct() {
-        IntStream.rangeClosed(1, 10).forEach((i) -> {
+        IntStream.rangeClosed(1, 21).forEach((i) -> {
             Product product = Product.builder()
-                    .pname("pname" + i)
+                    .productName("productName" + i)
                     .price(i * 100)
                     .build();
             productRepository.save(product);
@@ -45,7 +45,7 @@ class RepositoryTest {
             IntStream.rangeClosed(1, cnt2).forEach((k) -> {
                 Fancy fancy = Fancy.builder()
                         .product(product)
-                        .fwriter("writer" + k)
+                        .fancyWriter("fancyWriter" + k)
                         .build();
                 fancyRepository.save(fancy);
             });

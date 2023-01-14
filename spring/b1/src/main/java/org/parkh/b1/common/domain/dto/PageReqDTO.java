@@ -14,6 +14,12 @@ public class PageReqDTO {
         this.pageSize = 10;
     }
 
+    public PageReqDTO(int page, int pageSize) {
+        setPage(page);
+        setSize(pageSize);
+    }
+
+
     public void setPage(int page) {
         this.page = page <= 0 ? 1 : page;
     }
@@ -27,4 +33,6 @@ public class PageReqDTO {
         Pageable pageable = PageRequest.of(this.page - 1, this.pageSize, sort);
         return pageable;
     }
+
+
 }

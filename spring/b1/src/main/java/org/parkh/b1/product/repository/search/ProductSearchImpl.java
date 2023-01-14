@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import java.util.List;
+
 @Log4j2
 public class ProductSearchImpl extends QuerydslRepositorySupport implements ProductSearch {
 
@@ -30,16 +32,19 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
         query.leftJoin(review).on(review.product.eq(product))
                 .leftJoin(fancy).on(fancy.product.eq(product))
                 .groupBy(product);
+
         JPQLQuery<ProductListDTO> dtoJpqlQuery = query.select(
                 Projections.bean(ProductListDTO.class,
                         product.pno,
-                        product.pname,
+                        product.productName,
                         product.price,
                         review.countDistinct().as("reviewCnt"),
                         fancy.countDistinct().as("fancyCnt")
                 )
         );
+        List<ProductListDTO> productListDTOList = dtoJpqlQuery.fetch();
+        long total = dtoJpqlQuery.fetchCount();
 
-        return new PageImpl<>(dtoJpqlQuery.fetch(), pageable, dtoJpqlQuery.fetchCount());
+        return new PageImpl<>(productListDTOList, pageable, total);
     }
 }

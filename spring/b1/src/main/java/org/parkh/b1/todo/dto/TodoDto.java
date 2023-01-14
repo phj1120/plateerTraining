@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.parkh.b1.todo.domain.Todo;
 
 import java.time.LocalDate;
 
@@ -13,7 +12,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TodoDto {
+public class TodoDTO {
 
     public Long id;
     private String title;
@@ -28,22 +27,4 @@ public class TodoDto {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate modDate;
-
-    public Todo getEntity() {
-        return Todo.builder()
-                .id(this.id)
-                .title(this.title)
-                .writer(this.writer)
-                .dueDate(this.dueDate)
-                .complete(this.complete)
-                .build();
-    }
-
-    public TodoDto(Todo todo) {
-        this.id = todo.getId();
-        this.title = todo.getTitle();
-        this.writer = todo.getWriter();
-        this.dueDate = todo.getDueDate();
-        this.complete = todo.isComplete();
-    }
 }

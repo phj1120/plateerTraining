@@ -1,19 +1,14 @@
-package org.parkh.b1.todo.dto;
+package org.parkh.b1.product.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class SearchConditionDTO {
-    String keyword;
-    LocalDate from;
-    LocalDate to;
-    boolean completed;
+    private String productName;
 }

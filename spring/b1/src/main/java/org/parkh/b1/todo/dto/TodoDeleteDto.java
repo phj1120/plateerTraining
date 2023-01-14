@@ -5,15 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchConditionDTO {
-    String keyword;
-    LocalDate from;
-    LocalDate to;
-    boolean completed;
+public class TodoDeleteDto {
+    private boolean state;
 }

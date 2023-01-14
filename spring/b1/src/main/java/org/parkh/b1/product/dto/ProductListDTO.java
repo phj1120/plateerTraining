@@ -6,10 +6,8 @@ import lombok.Data;
 public class ProductListDTO {
 
     private Long pno;
-    private String pname;
+    private String productName;
     private int price;
     private long reviewCnt;
-
     private long fancyCnt;
-
 }

@@ -35,7 +35,5 @@ public class PageResultDTO<E> {
         int tempEnd = (int) ((Math.ceil(this.pageNum / 10.0) * 10));
 
         this.end = tempEnd * pageSize > totalCount ? (int) Math.ceil(totalCount / (double) pageSize) : tempEnd;
-
-
     }
 }

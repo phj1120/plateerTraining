@@ -1,20 +1,12 @@
 package org.parkh.b1.todo.service;
 
 import org.parkh.b1.common.domain.dto.PageResultDTO;
+import org.parkh.b1.common.domain.dto.ResultDTO;
 import org.parkh.b1.todo.domain.Todo;
-import org.parkh.b1.todo.dto.SearchConditionDto;
-import org.parkh.b1.todo.dto.TodoAddDTO;
-import org.parkh.b1.todo.dto.TodoDto;
-import org.parkh.b1.todo.dto.TodoListDTO;
+import org.parkh.b1.todo.dto.*;
 
 public interface TodoService {
-
-    TodoDto add(TodoAddDTO dto);
-
-    PageResultDTO<TodoListDTO> getList();
-    PageResultDTO<TodoListDTO> getList(SearchConditionDto dto);
-
-    default Todo getEntity(TodoDto dto) {
+    default Todo getEntity(TodoDTO dto) {
         return Todo.builder()
                 .id(dto.getId())
                 .title(dto.getTitle())
@@ -24,8 +16,13 @@ public interface TodoService {
                 .build();
     }
 
-    void remove(long id);
+    ResultDTO<TodoDTO> add(TodoAddDTO dto);
 
-    TodoDto getTodoById(Long id);
+    ResultDTO<TodoDTO> getTodo(Long id);
 
+    PageResultDTO<TodoListDTO> getTodos();
+
+    PageResultDTO<TodoListDTO> getTodos(SearchConditionDTO dto);
+
+    ResultDTO<TodoDeleteDto> remove(long id);
 }

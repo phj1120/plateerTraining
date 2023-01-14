@@ -2,6 +2,7 @@ package org.parkh.b1.todo.repository;
 
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
+import org.parkh.b1.todo.domain.Reply;
 import org.parkh.b1.todo.domain.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,20 +20,6 @@ class TodoRepositoryTests {
 
     @Autowired
     private TodoRepository todoRepository;
-
-    @Test
-    public void testInsert() {
-        LocalDate date = LocalDate.now().minusDays(50);
-
-        IntStream.rangeClosed(1, 100).forEach((i) -> {
-            Todo todo = Todo.builder()
-                    .title("Title" + i)
-                    .writer("user" + i)
-                    .dueDate(date.plusDays(i))
-                    .build();
-            log.info(todoRepository.save(todo));
-        });
-    }
 
     @Test
     public void testDelete() {

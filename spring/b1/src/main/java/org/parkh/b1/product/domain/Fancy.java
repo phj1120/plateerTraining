@@ -21,6 +21,6 @@ public class Fancy extends BaseEntity {
     @ManyToOne
     private Product product;
 
-    private String fwriter;
+    private String fancyWriter;
 
 }
