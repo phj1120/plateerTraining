@@ -12,6 +12,7 @@ import today.parkh.v0115.common.domain.dto.PageResultDTO;
 import today.parkh.v0115.product.domain.Product;
 import today.parkh.v0115.product.dto.ProductAddDTO;
 import today.parkh.v0115.product.dto.ProductDTO;
+import today.parkh.v0115.product.dto.ProductListDTO;
 import today.parkh.v0115.product.repository.ProductRepository;
 import today.parkh.v0115.user.domain.User;
 import today.parkh.v0115.user.service.UserService;
@@ -73,5 +74,23 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(productId).orElseThrow(() -> {
             throw new RuntimeException();
         });
+    }
+
+    @Override
+    public PageResultDTO<ProductListDTO> productListDTO(Pageable pageable) {
+        Page<Object[]> productListDTOs = productRepository.getProductListDTOs(pageable);
+        long totalElements = productListDTOs.getTotalElements();
+        int totalPages = productListDTOs.getTotalPages();
+        List<ProductListDTO> productListDTOS = productListDTOs.getContent().stream()
+                .map((objects -> {
+                    Product product = (Product) objects[0];
+                    User user = (User) objects[1];
+                    long replyCount = (long) objects[2];
+                    long fancyCount = (long) objects[3];
+
+                    return new ProductListDTO(product, user, replyCount, fancyCount);
+                })).collect(Collectors.toList());
+
+        return new PageResultDTO<ProductListDTO>(productListDTOS, pageable, totalElements, totalPages);
     }
 }

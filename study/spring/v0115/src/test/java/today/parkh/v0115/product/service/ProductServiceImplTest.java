@@ -11,6 +11,7 @@ import today.parkh.v0115.common.domain.dto.PageReqDTO;
 import today.parkh.v0115.common.domain.dto.PageResultDTO;
 import today.parkh.v0115.product.dto.ProductAddDTO;
 import today.parkh.v0115.product.dto.ProductDTO;
+import today.parkh.v0115.product.dto.ProductListDTO;
 import today.parkh.v0115.user.dto.UserAddDTO;
 import today.parkh.v0115.user.dto.UserDTO;
 import today.parkh.v0115.user.service.UserService;
@@ -62,5 +63,14 @@ class ProductServiceImplTest {
         PageResultDTO<ProductDTO> products = productService.products(pageReqDTO, sort);
 
         log.info(products);
+    }
+
+    @Test
+    void  productListDTO() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("pno").descending());
+
+        PageResultDTO<ProductListDTO> productListDTOPageResultDTO = productService.productListDTO(pageable);
+
+        log.info(productListDTOPageResultDTO);
     }
 }

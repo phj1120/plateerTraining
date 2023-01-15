@@ -1,5 +1,6 @@
 package today.parkh.v0115.product.service;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import today.parkh.v0115.common.domain.dto.PageReqDTO;
@@ -7,6 +8,7 @@ import today.parkh.v0115.common.domain.dto.PageResultDTO;
 import today.parkh.v0115.product.domain.Product;
 import today.parkh.v0115.product.dto.ProductAddDTO;
 import today.parkh.v0115.product.dto.ProductDTO;
+import today.parkh.v0115.product.dto.ProductListDTO;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -22,4 +24,6 @@ public interface ProductService {
     PageResultDTO<ProductDTO> products(PageReqDTO pageReqDTO, Sort sort);
 
     Product findById(Long productId);
+
+    PageResultDTO<ProductListDTO> productListDTO(Pageable pageable);
 }
