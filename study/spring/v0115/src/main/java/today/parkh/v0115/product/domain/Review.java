@@ -20,6 +20,10 @@ public class Review extends BaseEntity {
     @GeneratedValue
     private Long rno;
 
+    private String title;
+
+    private String content;
+
     @ManyToOne
     private Product product;
 

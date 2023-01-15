@@ -2,6 +2,7 @@ package today.parkh.v0115.product.domain;
 
 import lombok.*;
 import today.parkh.v0115.common.domain.BaseEntity;
+import today.parkh.v0115.product.dto.ProductDTO;
 import today.parkh.v0115.user.domain.User;
 
 import javax.persistence.*;
@@ -28,4 +29,9 @@ public class Product extends BaseEntity {
     private User seller;
 
 
+    public Product(ProductDTO productDTO, User seller) {
+        this.productName = productDTO.getProductName();
+        this.price = productDTO.getPrice();
+        this.seller = seller;
+    }
 }
