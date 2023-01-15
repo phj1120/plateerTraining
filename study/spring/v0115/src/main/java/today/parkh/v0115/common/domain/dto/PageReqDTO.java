@@ -10,6 +10,7 @@ public class PageReqDTO {
     private int pageSize;
 
     private String key;
+
     public PageReqDTO() {
         this.page = 1;
         this.pageSize = 10;
