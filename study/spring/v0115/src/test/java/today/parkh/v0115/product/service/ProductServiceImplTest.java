@@ -4,6 +4,11 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import today.parkh.v0115.common.domain.dto.PageReqDTO;
+import today.parkh.v0115.common.domain.dto.PageResultDTO;
 import today.parkh.v0115.product.dto.ProductAddDTO;
 import today.parkh.v0115.product.dto.ProductDTO;
 import today.parkh.v0115.user.dto.UserAddDTO;
@@ -37,6 +42,24 @@ class ProductServiceImplTest {
     @Test
     void products() {
         List<ProductDTO> products = productService.products();
+
+        log.info(products);
+    }
+
+
+    @Test
+    void productsPageable() {
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("pno").descending());
+        PageResultDTO<ProductDTO> products = productService.products(pageable);
+
+        log.info(products);
+    }
+
+    @Test
+    void productsPageableByPageReqDTO() {
+        PageReqDTO pageReqDTO = new PageReqDTO(1, 10);
+        Sort sort = Sort.by("pno").descending();
+        PageResultDTO<ProductDTO> products = productService.products(pageReqDTO, sort);
 
         log.info(products);
     }

@@ -3,7 +3,12 @@ package today.parkh.v0115.product.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import today.parkh.v0115.common.domain.dto.PageReqDTO;
+import today.parkh.v0115.common.domain.dto.PageResultDTO;
 import today.parkh.v0115.product.domain.Product;
 import today.parkh.v0115.product.dto.ProductAddDTO;
 import today.parkh.v0115.product.dto.ProductDTO;
@@ -41,6 +46,25 @@ public class ProductServiceImpl implements ProductService {
         return products.stream()
                 .map(product -> modelMapper.map(product, ProductDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PageResultDTO<ProductDTO> products(Pageable pageable) {
+        Page<Product> productPage = productRepository.findAll(pageable);
+        List<ProductDTO> productDTOs = productPage.getContent().stream()
+                .map(product -> modelMapper.map(product, ProductDTO.class))
+                .collect(Collectors.toList());
+        int totalPages = productPage.getTotalPages();
+        long totalElements = productPage.getTotalElements();
+
+        return new PageResultDTO<>(productDTOs, pageable, totalElements, totalPages);
+    }
+
+    @Override
+    public PageResultDTO<ProductDTO> products(PageReqDTO pageReqDTO, Sort sort) {
+        Pageable pageable = pageReqDTO.getPageable(sort);
+
+        return products(pageable);
     }
 
     @Override
