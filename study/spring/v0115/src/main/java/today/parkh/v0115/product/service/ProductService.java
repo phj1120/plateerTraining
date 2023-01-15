@@ -1,5 +1,6 @@
 package today.parkh.v0115.product.service;
 
+import today.parkh.v0115.product.domain.Product;
 import today.parkh.v0115.product.dto.ProductAddDTO;
 import today.parkh.v0115.product.dto.ProductDTO;
 
@@ -11,4 +12,6 @@ public interface ProductService {
     ProductDTO addProduct(ProductAddDTO dto);
 
     List<ProductDTO> products();
+
+    Product findById(Long productId);
 }

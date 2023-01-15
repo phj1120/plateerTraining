@@ -9,7 +9,7 @@ import today.parkh.v0115.product.dto.ProductAddDTO;
 import today.parkh.v0115.product.dto.ProductDTO;
 import today.parkh.v0115.product.repository.ProductRepository;
 import today.parkh.v0115.user.domain.User;
-import today.parkh.v0115.user.repository.UserRepository;
+import today.parkh.v0115.user.service.UserService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,18 +19,14 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-
     private final ModelMapper modelMapper;
     private final ProductRepository productRepository;
-
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Override
     public ProductDTO addProduct(ProductAddDTO dto) {
         ProductDTO productDTO = modelMapper.map(dto, ProductDTO.class);
-        User seller = userRepository.findById(dto.getSellerId()).orElseThrow(() -> {
-            throw new RuntimeException();
-        });
+        User seller = userService.findById(dto.getSellerId());
         Product product = new Product(productDTO, seller);
         Product saveProduct = productRepository.save(product);
         ProductDTO saveProductDTO = modelMapper.map(saveProduct, ProductDTO.class);
@@ -45,5 +41,13 @@ public class ProductServiceImpl implements ProductService {
         return products.stream()
                 .map(product -> modelMapper.map(product, ProductDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Product findById(Long productId) {
+
+        return productRepository.findById(productId).orElseThrow(() -> {
+            throw new RuntimeException();
+        });
     }
 }

@@ -25,4 +25,12 @@ public class UserServiceImpl implements UserService {
 
         return userDTO;
     }
+
+    @Override
+    public User findById(Long id) {
+
+        return userRepository.findById(id).orElseThrow(() -> {
+            throw new RuntimeException();
+        });
+    }
 }
