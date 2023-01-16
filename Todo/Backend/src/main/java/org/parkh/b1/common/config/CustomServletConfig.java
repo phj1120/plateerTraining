@@ -1,15 +1,22 @@
 package org.parkh.b1.common.config;
 
 import org.parkh.b1.common.fomatter.LocalDateFormatter;
+import org.parkh.b1.todo.interceptor.TodoInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
 public class CustomServletConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new TodoInterceptor()).addPathPatterns("/api/todos/*");
+    }
 
     @Override
     public void addFormatters(FormatterRegistry registry) {

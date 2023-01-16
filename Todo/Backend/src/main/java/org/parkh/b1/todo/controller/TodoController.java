@@ -1,6 +1,7 @@
 package org.parkh.b1.todo.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.parkh.b1.common.annotation.JWTAuth;
 import org.parkh.b1.common.domain.dto.PageResultDTO;
 import org.parkh.b1.common.domain.dto.ResultDTO;
 import org.parkh.b1.todo.dto.*;
@@ -24,6 +25,7 @@ public class TodoController {
         return todoService.getTodos(dto);
     }
 
+    @JWTAuth
     @GetMapping("/{id}")
     public ResultDTO<TodoDTO> getTodoListDTO(@PathVariable("id") Long id) {
 
