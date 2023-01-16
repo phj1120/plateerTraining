@@ -23,7 +23,7 @@ public class ParamLogAdvice {
     }
 
     @Around("execution(* org.parkh.b1.todo.service.TodoService.*(..))")
-    public void checkTime(ProceedingJoinPoint pjp) throws Throwable {
+    public Object checkTime(ProceedingJoinPoint pjp) throws Throwable {
         log.info("--------------[AOP Around]--------------");
         long start = System.currentTimeMillis();
 
@@ -34,6 +34,8 @@ public class ParamLogAdvice {
         long end = System.currentTimeMillis();
         log.info("[Time] : {} ms", end - start);
         log.info("----------------------------------------");
+
+        return result;
     }
 
 

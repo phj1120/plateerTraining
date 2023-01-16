@@ -7,7 +7,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.invoke.MethodHandle;
 
 @Log4j2
 public class TodoInterceptor implements HandlerInterceptor {
@@ -15,14 +14,19 @@ public class TodoInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // handler : controller 의 메서드
-        HandlerMethod method = (HandlerMethod) handler;
-        log.info("TodoInterceptor");
-        log.info(method.getMethod().getName());
-        JWTAuth annotation = method.getMethodAnnotation(JWTAuth.class);
-        if (annotation != null) {
-            log.info("Required JWT");
-        }
+        log.info(handler);
+        try {
+            HandlerMethod method = (HandlerMethod) handler;
 
-        return HandlerInterceptor.super.preHandle(request, response, handler);
+            log.info("TodoInterceptor");
+            log.info(method.getMethod().getName());
+            JWTAuth annotation = method.getMethodAnnotation(JWTAuth.class);
+            if (annotation != null) {
+                log.info("Required JWT");
+            }
+        } catch (ClassCastException e) {
+            log.error(e.getMessage());
+        }
+        return true;
     }
 }
