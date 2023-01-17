@@ -22,7 +22,14 @@ const useMemberInfo = defineStore('useMemberInfo',() => {
     return memberInfo
   }
 
-  return {memberInfo, saveInfo, getTokens}
+  const logout = () =>{
+    memberInfo.value.access = null
+    memberInfo.value.refresh = null
+
+    localStorage.clear()
+  }
+
+  return {memberInfo, saveInfo, getTokens, logout}
 })
 
 export default useMemberInfo

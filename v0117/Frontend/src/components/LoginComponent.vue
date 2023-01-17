@@ -14,6 +14,8 @@ import {ref} from "vue";
 
 const memberInfo = ref({username: null, password: null})
 
+const emits = defineEmits('login')
+
 const handleClickLogin = async (memberInfo) => {
   const res = await axios.post(`http://localhost:8080/api/login`, memberInfo)
 
@@ -23,6 +25,8 @@ const handleClickLogin = async (memberInfo) => {
   const {saveInfo} = useMemberInfo()
 
   saveInfo(data.access, data.refresh)
+
+  emits('login')
 }
 
 </script>

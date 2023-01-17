@@ -1,6 +1,8 @@
 import axios from "axios";
 import useMemberInfo from "@/store/useMemberInfo";
+import router from "@/router";
 
+// 요청과 토큰 refresh 한 번에 처리
 const authAxios = axios.create()
 
 const requestRefresh = async () => {
@@ -20,7 +22,6 @@ const requestRefresh = async () => {
   return data
 }
 
-
 authAxios.interceptors.request.use((config) => {
     // authAxios 로 요청 시 헤더에 토큰 넣어 전송
     config.headers = {'Authorization': `Bearer ${useMemberInfo().getTokens().value.access}`}
@@ -35,21 +36,31 @@ authAxios.interceptors.response.use((response) => {
     return response
   }, async (error) => {
     // 상태코드가 200이 아닐 경우
+    console.log('authAxios.interceptors.response - error')
+    console.log(error)
 
-    // 토큰이 만료된 경우
-    if (error.response.data.msg === 'EXPIRED' || error.response.data.msg === 'PLZLOGIN') {
+    // access 토큰이 만료된 경우 refresh 토큰 이용해 access 토큰과 refresh 토큰 갱신
+    if (error.response.data.msg === 'EXPIRED') {
       try {
+        // 토큰 refresh 요청
         const tokens = await requestRefresh()
+
+        // 갱신 된 토큰을 헤더에 담아 재요청
         error.config.headers = {'Authorization': `Bearer ${tokens.access}`}
-        console.log(error.config)
+
         return axios(error.config)
       } catch (eee) {
+        console.log('authAxios.interceptors: Refresh Error')
+        console.log(eee)
 
-        return Promise.reject(error);
+        // TODO Axios 에서 Post 로 로그인 창으로 보내는게 맞나?
+        router.push({name: 'LoginPage'})
+
+        return Promise.reject(eee);
       }
     }
 
-    return axios(error.config)
+    return Promise.reject(error);
   }
 )
 

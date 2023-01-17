@@ -14,8 +14,10 @@ const route = useRoute()
 const router = useRouter();
 const userInfo = ref({title: null, writer: null})
 
-authAxios.get('http://localhost:8080/api/todos/' + route.params.id).then((res) => {
+const result = authAxios.get('http://localhost:8080/api/todos/' + route.params.id).then((res) => {
   userInfo.value = res.data
+  console.log('[result]')
+  console.log(res)
 })
 
 // const res = await authAxios.get('http://localhost:8080/api/todos/' + route.params.id)
