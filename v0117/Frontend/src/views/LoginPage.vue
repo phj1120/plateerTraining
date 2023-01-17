@@ -1,8 +1,6 @@
 <template>
-  <h1>Login Page </h1>
-
-  <LoginComponent @login="login"></LoginComponent>
-
+    <h1>Login Page </h1>
+    <LoginComponent @clickLogin="clickLogin"></LoginComponent>
 </template>
 
 <script setup>
@@ -11,7 +9,7 @@ import {useRouter} from "vue-router";
 
 const router = useRouter();
 
-const login = () => {
+const clickLogin = () => {
   router.push({name: 'TodoListPage'})
 }
 
