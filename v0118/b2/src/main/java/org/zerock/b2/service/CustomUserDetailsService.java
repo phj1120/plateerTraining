@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.zerock.b2.config.Encoder;
 
 @Log4j2
 @Service
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Setter
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private PasswordEncoder passwordEncoder;
+    private final Encoder encoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -24,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         UserDetails userDetails = User.builder()
                 .username(username)
-                .password(passwordEncoder.encode("1111"))
+                .password(encoder.getPasswordEncoder().encode("1111"))
                 .authorities("ROLE_USER", "ROLE_ADMIN")
                 .build();
         return userDetails;

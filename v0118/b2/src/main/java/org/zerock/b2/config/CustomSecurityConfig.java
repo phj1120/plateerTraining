@@ -10,8 +10,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -19,6 +17,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.zerock.b2.filter.JWTLoginFilter;
 import org.zerock.b2.filter.TokenCheckFilter;
+import org.zerock.b2.handler.JWTLoginFailHandler;
 import org.zerock.b2.handler.JWTLoginSuccessHandler;
 import org.zerock.b2.security.JWTUtil;
 import org.zerock.b2.service.CustomUserDetailsService;
@@ -33,20 +32,15 @@ import java.util.Arrays;
 public class CustomSecurityConfig {
     private final CustomUserDetailsService customUserDetailsService;
     private final JWTUtil jwtUtil;
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    private final Encoder encoder;
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         log.info("[CustomSecurityConfig.filterChain]");
-        customUserDetailsService.setPasswordEncoder(passwordEncoder());
-
+        // Spring Security 가 제공하는 기본 로그인 화면
 //        http.formLogin();
 
-        // api 서버라 csrf 설정 필요 없음
+        // 외부에서 http 요청 하는 것을 막기 위한 것이 csrf 설정인데, api 서버라 csrf 설정 필요 없음
         http.csrf().disable();
 
         // cors 설정
@@ -54,23 +48,23 @@ public class CustomSecurityConfig {
             httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource());
         });
 
-        // jwt 를 이용할 것이므로 세션은 사용하지 않겠다.
+        // jwt 를 이용할 것이므로 세션은 사용 하지 않을 예정
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // AuthenticationManager 설정 - 반드시 필요
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(encoder.getPasswordEncoder());
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
         http.authenticationManager(authenticationManager);
 
         // JWT 로그인용 필터 등록
         JWTLoginFilter jwtLoginFilter = new JWTLoginFilter("/api/generate");
         jwtLoginFilter.setAuthenticationManager(authenticationManager); // AuthenticationManager 설정 - 반드시 필요
-
         jwtLoginFilter.setAuthenticationSuccessHandler(new JWTLoginSuccessHandler(jwtUtil)); // 성공 핸들러 등록
-
+        jwtLoginFilter.setAuthenticationFailureHandler(new JWTLoginFailHandler()); // 실패 핸들러 등록
         http.addFilterBefore(jwtLoginFilter, UsernamePasswordAuthenticationFilter.class);
 
+        // JWT 토큰 검증 필터 등록
         TokenCheckFilter tokenCheckFilter = new TokenCheckFilter(jwtUtil, customUserDetailsService);
         http.addFilterBefore(tokenCheckFilter, UsernamePasswordAuthenticationFilter.class);
 

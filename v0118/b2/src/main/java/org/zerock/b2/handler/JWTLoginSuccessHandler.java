@@ -16,6 +16,7 @@ import java.util.Map;
 @Log4j2
 public class JWTLoginSuccessHandler implements AuthenticationSuccessHandler {
 
+    // filter 는 autowired 가 안 되기 때문에 생성자이용해 직접 주입 해줌
     private JWTUtil jwtUtil;
 
     public JWTLoginSuccessHandler(JWTUtil jwtUtil) {

@@ -1,6 +1,7 @@
 package org.zerock.b2.filter;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -20,8 +21,16 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         log.info("[JWTLoginFilter]: attemptAuthentication");
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken("username", "1111");
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        if (username == null || password == null) {
+
+        }
+
+//        throw new AuthenticationCredentialsNotFoundException("Not Found User");
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+
 
         return getAuthenticationManager().authenticate(authenticationToken);
     }
