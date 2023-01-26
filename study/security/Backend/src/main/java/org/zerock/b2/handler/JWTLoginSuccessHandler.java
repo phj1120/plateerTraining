@@ -1,9 +1,11 @@
 package org.zerock.b2.handler;
 
 import com.google.gson.Gson;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 import org.zerock.b2.security.JWTUtil;
 
 import javax.servlet.ServletException;
@@ -14,14 +16,10 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 @Log4j2
+@Component
+@RequiredArgsConstructor
 public class JWTLoginSuccessHandler implements AuthenticationSuccessHandler {
-
-    // filter 는 autowired 가 안 되기 때문에 생성자이용해 직접 주입 해줌
-    private JWTUtil jwtUtil;
-
-    public JWTLoginSuccessHandler(JWTUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
-    }
+    private final JWTUtil jwtUtil;
 
     // 추상 클래스가 두 개 지만 interface 의 Default 기능을 이용해서 하나만 등록해 줘도 되는거 임
     @Override

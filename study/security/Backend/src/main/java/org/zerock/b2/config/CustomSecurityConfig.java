@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -32,7 +34,13 @@ import java.util.Arrays;
 public class CustomSecurityConfig {
     private final CustomUserDetailsService customUserDetailsService;
     private final JWTUtil jwtUtil;
-    private final Encoder encoder;
+    private final JWTLoginSuccessHandler jwtLoginSuccessHandler;
+    private final JWTLoginFailHandler jwtLoginFailHandler;
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
@@ -53,15 +61,15 @@ public class CustomSecurityConfig {
 
         // AuthenticationManager 설정 - 반드시 필요
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(encoder.getPasswordEncoder());
+        authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder()); // 비밀번호 변경도 security 에서 제공(userDetailsPasswordManager)
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
         http.authenticationManager(authenticationManager);
 
         // JWT 로그인용 필터 등록
         JWTLoginFilter jwtLoginFilter = new JWTLoginFilter("/api/generate");
         jwtLoginFilter.setAuthenticationManager(authenticationManager); // AuthenticationManager 설정 - 반드시 필요
-        jwtLoginFilter.setAuthenticationSuccessHandler(new JWTLoginSuccessHandler(jwtUtil)); // 성공 핸들러 등록
-        jwtLoginFilter.setAuthenticationFailureHandler(new JWTLoginFailHandler()); // 실패 핸들러 등록
+        jwtLoginFilter.setAuthenticationSuccessHandler(jwtLoginSuccessHandler); // 성공 핸들러 등록
+        jwtLoginFilter.setAuthenticationFailureHandler(jwtLoginFailHandler); // 실패 핸들러 등록
         http.addFilterBefore(jwtLoginFilter, UsernamePasswordAuthenticationFilter.class);
 
         // JWT 토큰 검증 필터 등록

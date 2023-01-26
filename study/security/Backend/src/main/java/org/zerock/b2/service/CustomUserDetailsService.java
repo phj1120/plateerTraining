@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.zerock.b2.config.Encoder;
 
 @Log4j2
 @Service
@@ -16,15 +16,13 @@ import org.zerock.b2.config.Encoder;
 @Setter
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final Encoder encoder;
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("[CustomUserDetailsService]: loadUserByUsername");
 
         UserDetails userDetails = User.builder()
                 .username(username)
-                .password(encoder.getPasswordEncoder().encode("1111"))
+                .password(new BCryptPasswordEncoder().encode("1111"))
                 .authorities("ROLE_USER", "ROLE_ADMIN")
                 .build();
         return userDetails;
