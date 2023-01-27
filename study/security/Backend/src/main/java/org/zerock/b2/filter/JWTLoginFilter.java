@@ -3,6 +3,7 @@ package org.zerock.b2.filter;
 import com.google.gson.Gson;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -30,7 +31,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
             throw new AuthenticationCredentialsNotFoundException("Not Found User");
         }
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-
-        return getAuthenticationManager().authenticate(authenticationToken);
+        AuthenticationManager authenticationManager = getAuthenticationManager();
+        Authentication authenticate = getAuthenticationManager().authenticate(authenticationToken);
+        return authenticate;
     }
 }
