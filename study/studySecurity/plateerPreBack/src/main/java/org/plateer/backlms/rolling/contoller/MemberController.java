@@ -2,15 +2,13 @@ package org.plateer.backlms.rolling.contoller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.coyote.Response;
 import org.plateer.backlms.rolling.dto.MemberRegDTO;
 import org.plateer.backlms.rolling.service.MemberService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth/api/")
+@RequestMapping("/api/")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 @Log4j2

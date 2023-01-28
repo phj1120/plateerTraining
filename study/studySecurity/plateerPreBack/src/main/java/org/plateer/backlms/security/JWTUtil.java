@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -17,6 +18,23 @@ public class JWTUtil {
 
     @Value("${org.plateer.jwt.secret}")
     private String key;
+
+    // 권한 필요한 요청 /auth/api/
+    // 권한 필요 없는 요청 /api/
+    @Value("${filter.uri.exclude.tokenCheckFilter}")
+    private List<String> tokenCheckFilterExcludeUris;
+
+    public boolean isTokenCheckFilterExcludeUris(String uri) {
+        return isExcludeUris(uri, tokenCheckFilterExcludeUris);
+    }
+
+    private boolean isExcludeUris(String uri, List<String> excludeUris) {
+        for (String excludeUri : excludeUris) {
+            return uri.startsWith(excludeUri);
+        }
+        return false;
+    }
+
 
     public String generateToken(Map<String, Object> valueMap, int days) {
         //헤더 부분
