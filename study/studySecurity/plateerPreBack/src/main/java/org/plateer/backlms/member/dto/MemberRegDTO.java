@@ -1,4 +1,4 @@
-package org.plateer.backlms.rolling.dto;
+package org.plateer.backlms.member.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

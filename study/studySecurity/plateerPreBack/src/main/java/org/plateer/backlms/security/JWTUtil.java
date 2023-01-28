@@ -21,7 +21,7 @@ public class JWTUtil {
 
     // 권한 필요한 요청 /auth/api/
     // 권한 필요 없는 요청 /api/
-    @Value("${filter.uri.exclude.tokenCheckFilter}")
+    @Value("${org.platter.filter.uri.exclude.tokenCheckFilter}")
     private List<String> tokenCheckFilterExcludeUris;
 
     public boolean isTokenCheckFilterExcludeUris(String uri) {

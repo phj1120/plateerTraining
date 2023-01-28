@@ -1,6 +1,6 @@
-package org.plateer.backlms.rolling.repository;
+package org.plateer.backlms.member.repository;
 
-import org.plateer.backlms.rolling.domain.Member;
+import org.plateer.backlms.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

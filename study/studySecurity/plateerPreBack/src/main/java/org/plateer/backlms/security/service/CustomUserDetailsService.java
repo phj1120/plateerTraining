@@ -1,10 +1,9 @@
 package org.plateer.backlms.security.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
-import org.plateer.backlms.rolling.domain.Member;
-import org.plateer.backlms.rolling.repository.MemberRepository;
+import org.plateer.backlms.member.entity.Member;
+import org.plateer.backlms.member.repository.MemberRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

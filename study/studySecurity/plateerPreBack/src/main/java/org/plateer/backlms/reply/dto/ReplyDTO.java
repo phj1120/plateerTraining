@@ -1,10 +1,9 @@
-package org.plateer.backlms.rolling.dto;
+package org.plateer.backlms.reply.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.plateer.backlms.rolling.domain.Reply;
+import org.plateer.backlms.reply.domain.Reply;
 
 @Data
 @NoArgsConstructor

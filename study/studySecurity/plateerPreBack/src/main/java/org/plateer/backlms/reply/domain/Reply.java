@@ -1,6 +1,8 @@
-package org.plateer.backlms.rolling.domain;
+package org.plateer.backlms.reply.domain;
 
 import lombok.*;
+import org.plateer.backlms.member.entity.Member;
+import org.plateer.backlms.rolling.domain.Rolling;
 
 import javax.persistence.*;
 

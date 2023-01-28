@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.plateer.backlms.common.dto.PageReqDTO;
 import org.plateer.backlms.common.dto.PageResultDTO;
-import org.plateer.backlms.rolling.dto.ReplyListDTO;
 import org.plateer.backlms.rolling.dto.RollingDTO;
 import org.plateer.backlms.rolling.dto.RollingSearchDTO;
-import org.plateer.backlms.rolling.service.ReplyService;
 import org.plateer.backlms.rolling.service.RollingService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +17,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/rolling/")
-@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 @Log4j2
 public class RollingController {
     private final RollingService rollingService;
-    private final ReplyService replyService;
 
 
     /*
@@ -77,14 +73,5 @@ public class RollingController {
     @GetMapping("getSearchRollingList")
     public PageResultDTO<RollingDTO> getSearchRollingList(PageReqDTO pageReqDTO, RollingSearchDTO rollingSearchDTO) {
         return rollingService.getSearchRollingList(pageReqDTO, rollingSearchDTO);
-    }
-
-
-    /*
-     2022.01.24 박현준 / 롤링페이퍼 목록 호출
-    */
-    @GetMapping("{id}")
-    public ReplyListDTO getReplyList(@PathVariable("id") Long id) {
-        return replyService.getReplyList(id);
     }
 }

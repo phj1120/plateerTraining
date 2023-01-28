@@ -1,10 +1,10 @@
-package org.plateer.backlms.rolling.service;
+package org.plateer.backlms.member.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.plateer.backlms.rolling.domain.Member;
-import org.plateer.backlms.rolling.dto.MemberRegDTO;
-import org.plateer.backlms.rolling.repository.MemberRepository;
+import org.plateer.backlms.member.entity.Member;
+import org.plateer.backlms.member.dto.MemberRegDTO;
+import org.plateer.backlms.member.repository.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package org.plateer.backlms.common.controller;
+package org.plateer.backlms.sample;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;

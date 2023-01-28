@@ -1,9 +1,8 @@
-package org.plateer.backlms.rolling.repository;
+package org.plateer.backlms.reply.repository;
 
-import org.plateer.backlms.rolling.domain.Reply;
+import org.plateer.backlms.reply.domain.Reply;
 import org.plateer.backlms.rolling.domain.Rolling;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 

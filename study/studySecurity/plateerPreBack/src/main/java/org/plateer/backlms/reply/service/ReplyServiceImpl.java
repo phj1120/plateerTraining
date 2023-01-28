@@ -1,12 +1,12 @@
-package org.plateer.backlms.rolling.service;
+package org.plateer.backlms.reply.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.plateer.backlms.rolling.domain.Reply;
+import org.plateer.backlms.reply.domain.Reply;
+import org.plateer.backlms.reply.dto.ReplyDTO;
+import org.plateer.backlms.reply.dto.ReplyListDTO;
+import org.plateer.backlms.reply.repository.ReplyRepository;
 import org.plateer.backlms.rolling.domain.Rolling;
-import org.plateer.backlms.rolling.dto.ReplyDTO;
-import org.plateer.backlms.rolling.dto.ReplyListDTO;
-import org.plateer.backlms.rolling.repository.ReplyRepository;
 import org.plateer.backlms.rolling.repository.RollingRepository;
 import org.springframework.stereotype.Service;
 

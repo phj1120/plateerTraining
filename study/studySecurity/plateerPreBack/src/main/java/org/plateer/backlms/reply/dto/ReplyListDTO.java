@@ -1,4 +1,4 @@
-package org.plateer.backlms.rolling.dto;
+package org.plateer.backlms.reply.dto;
 
 import lombok.Builder;
 import lombok.Data;

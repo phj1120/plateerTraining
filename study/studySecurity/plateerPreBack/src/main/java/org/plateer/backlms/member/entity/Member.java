@@ -1,4 +1,4 @@
-package org.plateer.backlms.rolling.domain;
+package org.plateer.backlms.member.entity;
 
 import lombok.*;
 

@@ -1,15 +1,14 @@
-package org.plateer.backlms.rolling.contoller;
+package org.plateer.backlms.member.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.plateer.backlms.rolling.dto.MemberRegDTO;
-import org.plateer.backlms.rolling.service.MemberService;
+import org.plateer.backlms.member.dto.MemberRegDTO;
+import org.plateer.backlms.member.service.MemberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/")
-@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 @Log4j2
 public class MemberController {
