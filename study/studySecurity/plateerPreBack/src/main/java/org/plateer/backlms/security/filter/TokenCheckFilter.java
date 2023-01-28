@@ -55,7 +55,6 @@ public class TokenCheckFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             filterChain.doFilter(request, response);
-            return;
         } catch (AccessTokenException e) {
             e.sendResponseError(response);
         }

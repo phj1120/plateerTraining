@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.plateer.backlms.member.dto.MemberDTO;
 import org.plateer.backlms.member.dto.SignUpDTO;
-import org.plateer.backlms.member.dto.SignUpResultDTO;
 import org.plateer.backlms.member.entity.Member;
 import org.plateer.backlms.member.repository.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "tbl_rolling")
-@EqualsAndHashCode(callSuper=false, of="id")
+@EqualsAndHashCode(callSuper = false, of = "id")
 @Getter
 @Builder
 @AllArgsConstructor

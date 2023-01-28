@@ -25,7 +25,6 @@ public class RollingServiceImpl implements RollingService {
     private final RollingRepository rollingRepository;
 
 
-
     @Override
     public List<RollingDTO> getRollingAllList() {
         List<Rolling> rolling = rollingRepository.findAll();
@@ -48,7 +47,6 @@ public class RollingServiceImpl implements RollingService {
     }
 
 
-
     /*
         2023.01.26  정승현     / List 타이틀 + Rollung 수 서비스
      */
@@ -68,8 +66,7 @@ public class RollingServiceImpl implements RollingService {
         return pageResultDTO;
     }
 
-    
-    
+
     /*
         2023.01.26  주호승, 박현준    / SearchRolling 타이틀 + Rolling 수 서비스
      */
