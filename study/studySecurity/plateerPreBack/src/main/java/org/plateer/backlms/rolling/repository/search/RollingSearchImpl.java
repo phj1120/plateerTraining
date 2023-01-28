@@ -4,7 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;
 import lombok.extern.log4j.Log4j2;
-import org.plateer.backlms.rolling.domain.QReply;
+import org.plateer.backlms.reply.domain.QReply;
 import org.plateer.backlms.rolling.domain.QRolling;
 import org.plateer.backlms.rolling.domain.Rolling;
 import org.plateer.backlms.rolling.dto.RollingDTO;

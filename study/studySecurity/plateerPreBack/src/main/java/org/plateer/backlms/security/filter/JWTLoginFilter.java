@@ -2,6 +2,7 @@ package org.plateer.backlms.security.filter;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.json.GsonJsonParser;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,7 +26,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException {
         log.info("JWTLoginFilter................................");
         // POST 요청으로 로그인 처리 하기 때문에 같은 URL 에 POST 가 아닌 경우 예외 발생
-        if (!request.getMethod().equals("POST")) {
+        if (!HttpMethod.POST.matches(request.getMethod())) {
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
         }
         // request 에 있는 HTTP Body 에서 username 과 password 가져옴.

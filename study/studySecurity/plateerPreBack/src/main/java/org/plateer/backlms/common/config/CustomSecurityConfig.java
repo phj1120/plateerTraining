@@ -20,7 +20,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -70,7 +69,7 @@ public class CustomSecurityConfig {
         http.authenticationManager(authenticationManager);
 
         // JWT 로그인용 필터 등록
-        JWTLoginFilter jwtLoginFilter = new JWTLoginFilter("/api/login");
+        JWTLoginFilter jwtLoginFilter = new JWTLoginFilter("/api/sign-in");
         jwtLoginFilter.setAuthenticationManager(authenticationManager); // AuthenticationManager 설정 - 반드시 필요
         jwtLoginFilter.setAuthenticationSuccessHandler(new JWTLoginSuccessHandler(jwtUtil)); // 성공 핸들러 등록
         jwtLoginFilter.setAuthenticationFailureHandler(new JWTLoginFailHandler()); // 실패 핸들러 등록
