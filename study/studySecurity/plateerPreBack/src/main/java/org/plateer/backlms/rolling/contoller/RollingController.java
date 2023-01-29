@@ -2,7 +2,7 @@ package org.plateer.backlms.rolling.contoller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.plateer.backlms.common.dto.PageReqDTO;
+import org.plateer.backlms.common.dto.PageRequestDTO;
 import org.plateer.backlms.common.dto.PageResultDTO;
 import org.plateer.backlms.rolling.dto.RollingDTO;
 import org.plateer.backlms.rolling.dto.RollingSearchDTO;
@@ -16,28 +16,21 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/rolling/")
+@RequestMapping("/api/rolling")
 @RequiredArgsConstructor
 @Log4j2
 public class RollingController {
     private final RollingService rollingService;
 
-
     /*
-        2023.01.24 정승현 / 롤링페이퍼 호출 ( Home Page 메뉴에 사용 )
+        롤링페이퍼 목록 조회(페이징, 검색 처리)
      */
-    @GetMapping("getRollingAllList")
-    public List<RollingDTO> getRollingAllList() {
-        return rollingService.getRollingAllList();
-    }
+    @GetMapping
+    public PageResultDTO<RollingDTO> rollingList(@ModelAttribute PageRequestDTO pageDTO,
+                                                 @ModelAttribute RollingSearchDTO searchDTO) {
+        PageResultDTO<RollingDTO> rollingList = rollingService.getRollingList(pageDTO, searchDTO);
 
-
-    /*
-        2023.01.24 정승현 / 페이징으로 롤링페이퍼 호출 ( Rollingpaper List 메뉴에 사용 )
-     */
-    @GetMapping("getRollingList")
-    public PageResultDTO<RollingDTO> getRollingList(PageReqDTO pageReqDTO) {
-        return rollingService.getRollingList(pageReqDTO);
+        return rollingList;
     }
 
 
@@ -64,14 +57,5 @@ public class RollingController {
         }
 
         return "test-form";
-    }
-
-
-    /*
-        2023.01.25 정승현 / 검색으로 롤링페이퍼 호출 ( Rollingpaper List 메뉴에서 사용 )
-     */
-    @GetMapping("getSearchRollingList")
-    public PageResultDTO<RollingDTO> getSearchRollingList(PageReqDTO pageReqDTO, RollingSearchDTO rollingSearchDTO) {
-        return rollingService.getSearchRollingList(pageReqDTO, rollingSearchDTO);
     }
 }

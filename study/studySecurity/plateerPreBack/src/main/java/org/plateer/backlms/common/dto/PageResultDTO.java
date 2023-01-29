@@ -1,6 +1,7 @@
 package org.plateer.backlms.common.dto;
 
 import lombok.Data;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -9,25 +10,22 @@ import java.util.stream.IntStream;
 
 @Data
 public class PageResultDTO<E> {
-
     private List<E> dtoList;
-
     private int pageNum;
-
-    private long totalPageNum, totalCount;
-
+    private long totalPageNum;
+    private long totalCount;
     private int pageSize;
 
-    private int start, end;
+    private int start;
+    private int end;
 
     private List<Integer> pageNumList;
 
-    public PageResultDTO(List<E> dtoList, Pageable pageable, long total, long totalPage) {
-
-        this.dtoList = dtoList;
+    public PageResultDTO(Page<E> page, Pageable pageable) {
+        this.dtoList = page.getContent();
         this.pageNum = pageable.getPageNumber() + 1;
-        this.totalPageNum = totalPage;
-        this.totalCount = total;
+        this.totalPageNum = page.getTotalPages();
+        this.totalCount = page.getTotalElements();
         this.pageSize = pageable.getPageSize();
 
 
@@ -39,7 +37,6 @@ public class PageResultDTO<E> {
                 (int) (Math.ceil(totalCount / (double) pageSize)) : tempEnd;
 
         this.pageNumList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
-
     }
 }
 

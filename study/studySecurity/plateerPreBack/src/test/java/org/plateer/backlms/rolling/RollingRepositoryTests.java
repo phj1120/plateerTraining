@@ -10,14 +10,18 @@ import org.plateer.backlms.rolling.domain.Rolling;
 import org.plateer.backlms.rolling.repository.RollingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.IntStream;
 
 @SpringBootTest
 @Log4j2
+@Transactional
 public class RollingRepositoryTests {
     @Autowired
     RollingRepository rollingRepository;
@@ -29,11 +33,12 @@ public class RollingRepositoryTests {
     ReplyRepository replyRepository;
 
     @Test
+    @Rollback(value = false)
     public void initDB() {
         // 사용자 생성
         List<Member> members = new ArrayList<>();
         IntStream.rangeClosed(1, 20).forEach(i -> {
-            Member member = new Member("memberId" + i, "password" + i, "name" + i);
+            Member member = new Member("memberId" + UUID.randomUUID().toString().substring(0, 10), "password" + i, "name" + i);
             members.add(memberRepository.save(member));
         });
 
@@ -52,7 +57,6 @@ public class RollingRepositoryTests {
                     .createDt(LocalDate.now().plusDays(i))
                     .build();
             rollingRepository.save(rolling);
-
 
             IntStream.rangeClosed(1, getRandomNum(10)).forEach(j -> {
                 Reply reply = Reply.builder()

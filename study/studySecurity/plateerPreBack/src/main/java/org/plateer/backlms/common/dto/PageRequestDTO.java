@@ -6,12 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 @Data
-public class PageReqDTO {
+public class PageRequestDTO {
 
     private int page;
     private int size;
 
-    public PageReqDTO() {
+    public PageRequestDTO() {
         this.page = 1;
         this.size = 10;
     }

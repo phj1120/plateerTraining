@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RollingSearchDTO {
-    private String searchType;
+    private RollingSearchType searchType;
     private String searchValue;
 }
