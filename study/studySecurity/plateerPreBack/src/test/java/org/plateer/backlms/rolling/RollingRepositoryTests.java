@@ -51,7 +51,7 @@ public class RollingRepositoryTests {
 
             Rolling rolling = Rolling.builder()
                     .title("플래티어 프로젝트 ..")
-                    .writer(member.getMemberName())
+                    .writer(Member.builder().id(member.getId()).build())
                     .target(member.getMemberName())
                     .imgSrc("https://source.unsplash.com/random/" + i)
                     .createDt(LocalDate.now().plusDays(i))
@@ -73,28 +73,4 @@ public class RollingRepositoryTests {
     private int getRandomNum(int max) {
         return (int) (Math.random() * max);
     }
-
-
-    @Test
-    public void testRollingInsert() {
-        IntStream.rangeClosed(1, 125).forEach(i -> {
-            Rolling rolling = Rolling.builder()
-                    .title("플래티어 프로젝트 .. [" + i + "]")
-                    .writer("홍길동.." + i)
-                    .target("이순신" + i)
-                    .imgSrc("https://source.unsplash.com/random/" + i)
-                    .createDt(LocalDate.now().plusDays(i))
-                    .build();
-
-            rollingRepository.save(rolling);
-        });
-    }
-
-
-    @Test
-    public void testPrint() {
-        log.info("############################");
-        log.info(getRandomNum(10));
-    }
-
 }

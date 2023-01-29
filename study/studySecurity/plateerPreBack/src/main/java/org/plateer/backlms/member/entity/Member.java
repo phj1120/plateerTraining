@@ -18,6 +18,7 @@ public class Member {
 
     @Id
     @GeneratedValue
+    @Column(name = "member_no")
     private Long id;
 
     @Column(unique = true)

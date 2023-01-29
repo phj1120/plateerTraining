@@ -1,6 +1,7 @@
 package org.plateer.backlms.rolling.domain;
 
 import lombok.*;
+import org.plateer.backlms.member.entity.Member;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,20 +15,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString
 public class Rolling {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rno")
     private Long id;
-
     private String title;
-
-    private String writer;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member writer;
     private String target;
     private String imgSrc;
-
     private LocalDate createDt;
-
     private LocalDate updateDt;
 }

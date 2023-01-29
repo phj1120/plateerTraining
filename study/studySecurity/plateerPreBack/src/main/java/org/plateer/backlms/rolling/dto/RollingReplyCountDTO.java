@@ -12,12 +12,13 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RollingDTO {
+public class RollingReplyCountDTO {
     private Long id;
     private String title;
     private Long writerId;
     private String target;
     private String imgSrc;
+    private Long replyCount;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate createDt;

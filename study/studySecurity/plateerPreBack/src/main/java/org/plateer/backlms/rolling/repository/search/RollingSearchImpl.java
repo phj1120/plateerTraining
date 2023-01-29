@@ -7,7 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.plateer.backlms.reply.domain.QReply;
 import org.plateer.backlms.rolling.domain.QRolling;
 import org.plateer.backlms.rolling.domain.Rolling;
-import org.plateer.backlms.rolling.dto.RollingDTO;
+import org.plateer.backlms.rolling.dto.RollingReplyCountDTO;
 import org.plateer.backlms.rolling.dto.RollingSearchDTO;
 import org.plateer.backlms.rolling.dto.RollingSearchType;
 import org.springframework.data.domain.Page;
@@ -24,7 +24,7 @@ public class RollingSearchImpl extends QuerydslRepositorySupport implements Roll
     }
 
     @Override
-    public Page<RollingDTO> searchList(Pageable pageable, RollingSearchDTO searchDTO) {
+    public Page<RollingReplyCountDTO> searchList(Pageable pageable, RollingSearchDTO searchDTO) {
         QRolling rolling = QRolling.rolling;
         QReply reply = QReply.reply;
 
@@ -47,11 +47,11 @@ public class RollingSearchImpl extends QuerydslRepositorySupport implements Roll
         query.orderBy(rolling.id.desc());
         getQuerydsl().applyPagination(pageable, query);
 
-        JPQLQuery<RollingDTO> projectJPQLQuery = query.select(Projections.bean(
-                RollingDTO.class,
+        JPQLQuery<RollingReplyCountDTO> projectJPQLQuery = query.select(Projections.bean(
+                RollingReplyCountDTO.class,
                 rolling.id,
                 rolling.title,
-                rolling.writer,
+                rolling.writer.id.as("writerId"),
                 rolling.target,
                 rolling.imgSrc,
                 reply.countDistinct().as("replyCount"),
@@ -59,7 +59,7 @@ public class RollingSearchImpl extends QuerydslRepositorySupport implements Roll
                 rolling.updateDt
         ));
 
-        List<RollingDTO> dtoList = projectJPQLQuery.fetch();
+        List<RollingReplyCountDTO> dtoList = projectJPQLQuery.fetch();
         long count = projectJPQLQuery.fetchCount();
 
         return new PageImpl<>(dtoList, pageable, count);
