@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.api01.rolling.mapper.RollingMapper">
+    <sql id="search">
+    </sql>
+
+    <select id="getList"
+            parameterType="org.zerock.api01.common.dto.PageRequestDTO"
+            resultType="org.zerock.api01.rolling.vo.RollingVO">
+        select *
+        from tbl_rolling
+        <!--        <include refid="search"></include>-->
+        order by rolling_id desc limit #{page}, #{size}
+    </select>
+
+    <select id="getCount" resultType="int">
+        select
+        count(rolling_id)
+        from
+        tbl_rolling
+    </select>
+
+    <select id="getRolling"
+            parameterType="long"
+            resultType="org.zerock.api01.rolling.vo.RollingVO">
+        select *
+        from tbl_rolling
+        where rolling_id = #{rollingId}
+    </select>
+
+    <insert id="addRolling"
+            parameterType="org.zerock.api01.rolling.dto.RollingDTO"
+            useGeneratedKeys="true" keyProperty="rollingId">
+        insert into tbl_rolling (title, target)
+        value (#{title}, #{target})
+        <!--        <selectKey keyProperty="rollingId" resultType="long" order="AFTER">-->
+        <!--            SELECT LAST_INSERT_ID()-->
+        <!--        </selectKey>-->
+    </insert>
+
+    <update id="modifyRolling"
+            parameterType="org.zerock.api01.rolling.dto.RollingDTO"
+            useGeneratedKeys="true" keyProperty="rollingId">
+        update tbl_rolling set
+        <if test="title != null">
+            title = #{title},
+        </if>
+        <if test="target != null">
+            target = #{target}
+        </if>
+        where rolling_id = #{rollingId}
+    </update>
+
+    <delete id="deleteRolling">
+        delete from tbl_rolling where rolling_id = #{rollingId}
+    </delete>
+
+</mapper>
