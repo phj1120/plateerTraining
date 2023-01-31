@@ -64,6 +64,9 @@
             <if test="imgSrc != null">
                 img_src = #{imgSrc},
             </if>
+            <if test="true">
+                update_dt = #{updateDt}
+            </if>
         </set>
         where rolling_id = #{id}
     </update>

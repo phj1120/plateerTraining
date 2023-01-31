@@ -35,7 +35,7 @@ public class RollingServiceImpl implements RollingService {
     public RollingDTO getRolling(Long id) {
         RollingDTO rollingDTO = rollingMapper.getRolling(id);
         if (rollingDTO == null) {
-            throw new RuntimeException("조회 실패");
+            throw new IllegalArgumentException("조회 실패");
         }
 
         return rollingDTO;
@@ -46,7 +46,7 @@ public class RollingServiceImpl implements RollingService {
         int count = rollingMapper.addRolling(addRollingDTO);
 
         if (count != 1) {
-            throw new RuntimeException("추가 실패");
+            throw new IllegalArgumentException("추가 실패");
         }
     }
 
@@ -55,7 +55,7 @@ public class RollingServiceImpl implements RollingService {
         int count = rollingMapper.modifyRolling(modifyRollingDTO);
 
         if (count < 1) {
-            throw new RuntimeException("수정 실패");
+            throw new IllegalArgumentException("수정 실패");
         }
     }
 
@@ -63,7 +63,7 @@ public class RollingServiceImpl implements RollingService {
     public void deleteRolling(Long rollingId) {
         int count = rollingMapper.deleteRolling(rollingId);
         if (count != 1) {
-            throw new RuntimeException("삭제 실패");
+            throw new IllegalArgumentException("삭제 실패");
         }
     }
 }

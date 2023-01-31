@@ -16,9 +16,9 @@ public class TodoController {
 
 
     @GetMapping("list")
-    public String[] getList(PageRequestDTO pageRequestDTO){
+    public String[] getList(PageRequestDTO pageRequestDTO) {
         log.info(pageRequestDTO);
-        return new String[]{"AAA","BBB","CCC"};
+        return new String[]{"AAA", "BBB", "CCC"};
     }
 
 }

@@ -3,7 +3,6 @@ package org.zerock.api01.rolling.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.zerock.api01.rolling.vo.RollingVO;
 
 import java.time.LocalDate;
 
@@ -24,5 +23,13 @@ public class AddRollingDTO {
         this.imgSrc = request.getImgSrc();
         this.writer = request.getWriter();
         this.createDt = LocalDate.now();
+    }
+
+    public AddRollingDTO(String title, String target, String imgSrc, Long writer, LocalDate createDt) {
+        this.title = title;
+        this.target = target;
+        this.imgSrc = imgSrc;
+        this.writer = writer;
+        this.createDt = createDt;
     }
 }

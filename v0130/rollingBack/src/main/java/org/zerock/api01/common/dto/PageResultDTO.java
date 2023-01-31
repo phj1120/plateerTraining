@@ -3,6 +3,7 @@ package org.zerock.api01.common.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -24,7 +25,7 @@ public class PageResultDTO<E> {
 
     private int last;
 
-    private List<E> dtoList;
+    private List<E> dtoList = new ArrayList<>();
 
     @Builder(builderMethodName = "withAll")
     public PageResultDTO(PageRequestDTO pageRequestDTO, List<E> dtoList, int total) {

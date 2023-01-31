@@ -24,6 +24,8 @@ public class RollingDTO {
     private String imgSrc;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate createDt;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate updateDt;
 
     public RollingDTO(RollingVO rollingVO) {
         this.rollingId = rollingVO.getRollingId();
@@ -32,5 +34,6 @@ public class RollingDTO {
         this.imgSrc = rollingVO.getImgSrc();
         this.writerMemberId = rollingVO.getWriterMemberId();
         this.createDt = rollingVO.getCreatDt();
+        this.updateDt = rollingVO.getUpdateDt();
     }
 }

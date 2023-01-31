@@ -10,9 +10,10 @@ import org.zerock.api01.todo.mapper.TimeMapper;
 @RequiredArgsConstructor
 @Log4j2
 @Transactional
-public class TimeServiceImpl implements TimeService{
+public class TimeServiceImpl implements TimeService {
 
     private final TimeMapper timeMapper;
+
     @Override
     public String getNow() {
         return timeMapper.getTime();

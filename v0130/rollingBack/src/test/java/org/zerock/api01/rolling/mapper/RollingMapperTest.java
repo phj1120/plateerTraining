@@ -49,7 +49,7 @@ class RollingMapperTest {
 
     @Test
     void modifyRolling() {
-        Long rollingId = 682L;
+        Long rollingId = 684L;
 //        ModifyRollingRequest modifyRollingRequest = ModifyRollingRequest.builder().title(getNew("title")).build();
 //        ModifyRollingRequest modifyRollingRequest = ModifyRollingRequest.builder().target(getNew("title")).build();
         ModifyRollingRequest modifyRollingRequest = ModifyRollingRequest.builder().imgSrc(getNew("title")).build();

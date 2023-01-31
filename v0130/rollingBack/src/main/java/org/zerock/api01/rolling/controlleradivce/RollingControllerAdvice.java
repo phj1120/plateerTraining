@@ -9,7 +9,7 @@ import org.zerock.api01.common.dto.ResultDTO;
 public class RollingControllerAdvice {
 
     @ExceptionHandler
-    public ResponseEntity<ResultDTO> runtimeException(RuntimeException e) {
+    public ResponseEntity<ResultDTO> runtimeException(IllegalArgumentException e) {
 
         return ResponseEntity
                 .badRequest()
