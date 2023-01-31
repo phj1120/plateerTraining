@@ -5,11 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.time.LocalDate;
-
 @Builder
 @Data
 @AllArgsConstructor
@@ -22,5 +17,7 @@ public class PageRequestDTO {
     @Builder.Default
     private int size = 10;
 
-//    private String keyword;
+    public int getSkip() {
+        return (page - 1) * size;
+    }
 }

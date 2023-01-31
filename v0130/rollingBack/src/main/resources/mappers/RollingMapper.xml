@@ -5,14 +5,13 @@
 <mapper namespace="org.zerock.api01.rolling.mapper.RollingMapper">
     <sql id="search">
     </sql>
-
     <select id="getList"
-            parameterType="org.zerock.api01.common.dto.PageRequestDTO"
-            resultType="org.zerock.api01.rolling.vo.RollingVO">
+            parameterType="PageRequestDTO"
+            resultType="RollingDTO">
         select *
         from tbl_rolling
         <!--        <include refid="search"></include>-->
-        order by rolling_id desc limit #{page}, #{size}
+        order by rolling_id desc limit #{skip}, #{size}
     </select>
 
     <select id="getCount" resultType="int">
@@ -24,32 +23,37 @@
 
     <select id="getRolling"
             parameterType="long"
-            resultType="org.zerock.api01.rolling.vo.RollingVO">
+            resultType="RollingDTO">
         select *
         from tbl_rolling
-        where rolling_id = #{rollingId}
+        where rolling_id = #{id}
     </select>
 
     <insert id="addRolling"
-            parameterType="org.zerock.api01.rolling.dto.RollingDTO"
+            parameterType="RollingDTO"
             useGeneratedKeys="true" keyProperty="rollingId">
-        insert into tbl_rolling (title, target)
-        value (#{title}, #{target})
+        insert into tbl_rolling (title, target, img_src, create_dt, writer_member_id)
+        value (#{title}, #{target}, #{imgSrc}, #{createDt}, #{writerMemberId})
         <!--        <selectKey keyProperty="rollingId" resultType="long" order="AFTER">-->
         <!--            SELECT LAST_INSERT_ID()-->
         <!--        </selectKey>-->
     </insert>
 
     <update id="modifyRolling"
-            parameterType="org.zerock.api01.rolling.dto.RollingDTO"
-            useGeneratedKeys="true" keyProperty="rollingId">
-        update tbl_rolling set
-        <if test="title != null">
-            title = #{title},
-        </if>
-        <if test="target != null">
-            target = #{target}
-        </if>
+            parameterType="RollingDTO">
+        update tbl_rolling
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="target != null">
+                target = #{target},
+            </if>
+            <if test="imgSrc != null">
+                img_src = #{imgSrc},
+            </if>
+        </set>
+
         where rolling_id = #{rollingId}
     </update>
 

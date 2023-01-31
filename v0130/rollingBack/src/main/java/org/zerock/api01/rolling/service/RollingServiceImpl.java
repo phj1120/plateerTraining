@@ -8,7 +8,6 @@ import org.zerock.api01.common.dto.PageRequestDTO;
 import org.zerock.api01.common.dto.PageResultDTO;
 import org.zerock.api01.rolling.dto.RollingDTO;
 import org.zerock.api01.rolling.mapper.RollingMapper;
-import org.zerock.api01.rolling.vo.RollingVO;
 
 import java.util.List;
 
@@ -20,11 +19,11 @@ public class RollingServiceImpl implements RollingService {
     private final RollingMapper rollingMapper;
 
     @Override
-    public PageResultDTO<RollingVO> getList(PageRequestDTO pageRequestDTO) {
-        List<RollingVO> volist = rollingMapper.getList(pageRequestDTO);
+    public PageResultDTO<RollingDTO> getList(PageRequestDTO pageRequestDTO) {
+        List<RollingDTO> volist = rollingMapper.getList(pageRequestDTO);
         int total = rollingMapper.getCount(pageRequestDTO);
 
-        PageResultDTO<RollingVO> pageResponseDTO = PageResultDTO.<RollingVO>withAll()
+        PageResultDTO<RollingDTO> pageResponseDTO = PageResultDTO.<RollingDTO>withAll()
                 .dtoList(volist)
                 .total(total)
                 .pageRequestDTO(pageRequestDTO)
@@ -34,10 +33,10 @@ public class RollingServiceImpl implements RollingService {
     }
 
     @Override
-    public RollingVO getRolling(Long id) {
-        RollingVO rollingVO = rollingMapper.getRolling(id);
+    public RollingDTO getRolling(Long id) {
+        RollingDTO rollingDTO = rollingMapper.getRolling(id);
 
-        return rollingVO;
+        return rollingDTO;
     }
 
     @Override

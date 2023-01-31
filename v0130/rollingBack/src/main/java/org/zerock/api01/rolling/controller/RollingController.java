@@ -21,16 +21,16 @@ public class RollingController {
     private final RollingService rollingService;
 
     @GetMapping("list")
-    public PageResultDTO<RollingVO> getList(PageRequestDTO pageRequestDTO) {
+    public PageResultDTO<RollingDTO> getList(PageRequestDTO pageRequestDTO) {
 
         return rollingService.getList(pageRequestDTO);
     }
 
     @GetMapping("{id}")
     public ResultDTO<RollingVO> getRolling(@PathVariable("id") Long id) {
-        RollingVO rollingVO = rollingService.getRolling(id);
+        RollingDTO rollingDTO = rollingService.getRolling(id);
 
-        return ResultDTO.<RollingVO>builder().data(rollingVO).build();
+        return ResultDTO.<RollingVO>builder().data(new RollingVO(rollingDTO)).build();
     }
 
     // 추가

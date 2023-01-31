@@ -9,9 +9,9 @@ import java.util.List;
 public interface RollingMapper {
     int getCount(PageRequestDTO pageRequestDTO);
 
-    List<RollingVO> getList(PageRequestDTO pageRequestDTO);
+    List<RollingDTO> getList(PageRequestDTO pageRequestDTO);
 
-    RollingVO getRolling(Long id);
+    RollingDTO getRolling(Long id);
 
     int addRolling(RollingDTO rollingDTO);
 

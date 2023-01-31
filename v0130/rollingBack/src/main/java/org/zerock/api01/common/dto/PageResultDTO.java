@@ -22,6 +22,8 @@ public class PageResultDTO<E>{
     //다음 페이지의 존재 여부
     private boolean next;
 
+    private int last;
+
     private List<E> dtoList;
 
     @Builder(builderMethodName = "withAll")
@@ -41,7 +43,7 @@ public class PageResultDTO<E>{
 
         this.start = this.end - 9;
 
-        int last =  (int)(Math.ceil((total/(double)size)));
+        this.last =  (int)(Math.ceil((total/(double)size)));
 
         this.end =  end > last ? last: end;
 
