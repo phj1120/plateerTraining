@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zerock.api01.common.dto.PageRequestDTO;
 import org.zerock.api01.common.dto.PageResultDTO;
 import org.zerock.api01.rolling.dto.RollingDTO;
+import org.zerock.api01.rolling.dto.RollingPageRequestDTO;
 import org.zerock.api01.rolling.dto.RollingSearchType;
 import org.zerock.api01.rolling.mapper.RollingMapper;
 
@@ -20,14 +21,14 @@ public class RollingServiceImpl implements RollingService {
     private final RollingMapper rollingMapper;
 
     @Override
-    public PageResultDTO<RollingDTO> getList(PageRequestDTO pageRequestDTO) {
-        List<RollingDTO> volist = rollingMapper.getList(pageRequestDTO);
-        int total = rollingMapper.getCount(pageRequestDTO);
+    public PageResultDTO<RollingDTO> getList(RollingPageRequestDTO rollingPageRequestDTO) {
+        List<RollingDTO> volist = rollingMapper.getList(rollingPageRequestDTO);
+        int total = rollingMapper.getCount(rollingPageRequestDTO);
 
         PageResultDTO<RollingDTO> pageResponseDTO = PageResultDTO.<RollingDTO>withAll()
                 .dtoList(volist)
                 .total(total)
-                .pageRequestDTO(pageRequestDTO)
+                .pageRequestDTO(rollingPageRequestDTO)
                 .build();
 
         return pageResponseDTO;

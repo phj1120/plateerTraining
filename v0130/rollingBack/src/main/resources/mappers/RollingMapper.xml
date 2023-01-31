@@ -6,16 +6,15 @@
     <sql id="search">
         <bind name="pattern" value="'%' + _parameter.getKeyword() + '%'"/>
         <where>
-            1=1
             <if test="type.name() == 'TITLE'">
-                and title like #{pattern}
+                title like #{pattern}
             </if>
             <if test="type.name() == 'TARGET'">
-                and target like #{pattern}
+                target like #{pattern}
             </if>
             <if test="type.name() == 'ALL'">
-                and (title like #{pattern}
-                or target like #{pattern})
+                title like #{pattern}
+                or target like #{pattern}
             </if>
         </where>
     </sql>
@@ -33,7 +32,7 @@
         count(rolling_id)
         from
         tbl_rolling
-        <if test="type!= null">
+        <if test="type != null || keyword != null">
             <include refid="search"></include>
         </if>
     </select>
