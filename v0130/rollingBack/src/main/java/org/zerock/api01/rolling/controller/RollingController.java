@@ -4,15 +4,10 @@ package org.zerock.api01.rolling.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
-import org.zerock.api01.common.dto.PageRequestDTO;
 import org.zerock.api01.common.dto.PageResultDTO;
 import org.zerock.api01.common.dto.ResultDTO;
-import org.zerock.api01.rolling.dto.AddRollingRequest;
-import org.zerock.api01.rolling.dto.ModifyRollingRequest;
-import org.zerock.api01.rolling.dto.RollingDTO;
-import org.zerock.api01.rolling.dto.RollingPageRequestDTO;
+import org.zerock.api01.rolling.dto.*;
 import org.zerock.api01.rolling.service.RollingService;
-import org.zerock.api01.rolling.vo.RollingVO;
 
 @RestController
 @Log4j2
@@ -28,28 +23,29 @@ public class RollingController {
     }
 
     @GetMapping("{id}")
-    public ResultDTO<RollingVO> getRolling(@PathVariable("id") Long id) {
+    public ResultDTO<RollingDTO> getRolling(@PathVariable("id") Long id) {
         RollingDTO rollingDTO = rollingService.getRolling(id);
 
-        return ResultDTO.<RollingVO>builder().data(new RollingVO(rollingDTO)).build();
+        return ResultDTO.<RollingDTO>builder().data(rollingDTO).build();
     }
 
     // 추가
     @PostMapping
-    public ResultDTO<RollingVO> addRolling(@RequestBody AddRollingRequest request) {
-        RollingDTO rollingDTO = request.convert();
-        rollingService.addRolling(rollingDTO);
+    public ResultDTO<AddRollingDTO> addRolling(@RequestBody AddRollingRequest request) {
+        AddRollingDTO addRollingDTO = new AddRollingDTO(request);
+        rollingService.addRolling(addRollingDTO);
 
-        return ResultDTO.<RollingVO>builder().data(new RollingVO(rollingDTO)).build();
+        return ResultDTO.<AddRollingDTO>builder().data(addRollingDTO).build();
     }
 
     // 수정
     @PutMapping("{rollingId}")
-    public ResultDTO<RollingVO> modifyRolling(@PathVariable("rollingId") Long id, @RequestBody ModifyRollingRequest request) {
-        RollingDTO rollingDTO = request.convert(id);
-        rollingService.modifyRolling(rollingDTO);
+    public ResultDTO<ModifyRollingDTO> modifyRolling(@PathVariable("rollingId") Long id,
+                                                     @RequestBody ModifyRollingRequest request) {
+        ModifyRollingDTO modifyRollingDTO = new ModifyRollingDTO(id, request);
+        rollingService.modifyRolling(modifyRollingDTO);
 
-        return ResultDTO.<RollingVO>builder().data(new RollingVO(rollingDTO)).build();
+        return ResultDTO.<ModifyRollingDTO>builder().data(modifyRollingDTO).build();
     }
 
     // 삭제

@@ -1,21 +1,22 @@
 package org.zerock.api01.rolling.mapper;
 
-import org.zerock.api01.common.dto.PageRequestDTO;
+import org.zerock.api01.rolling.dto.AddRollingDTO;
+import org.zerock.api01.rolling.dto.ModifyRollingDTO;
 import org.zerock.api01.rolling.dto.RollingDTO;
-import org.zerock.api01.rolling.vo.RollingVO;
+import org.zerock.api01.rolling.dto.RollingPageRequestDTO;
 
 import java.util.List;
 
 public interface RollingMapper {
-    int getCount(PageRequestDTO pageRequestDTO);
+    int getCount(RollingPageRequestDTO rollingPageRequestDTO);
 
-    List<RollingDTO> getList(PageRequestDTO pageRequestDTO);
+    List<RollingDTO> getList(RollingPageRequestDTO rollingPageRequestDTO);
 
     RollingDTO getRolling(Long id);
 
-    int addRolling(RollingDTO rollingDTO);
+    int addRolling(AddRollingDTO addRollingDTO);
 
-    int modifyRolling(RollingDTO rollingDTO);
+    int modifyRolling(ModifyRollingDTO modifyRollingDTO);
 
     int deleteRolling(Long rollingId);
 }

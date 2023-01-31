@@ -14,16 +14,4 @@ public class AddRollingRequest {
     private String target;
     private String imgSrc;
     private Long writer;
-
-    public RollingDTO convert() {
-        return RollingDTO.builder()
-                .title(title)
-                .target(target)
-                .imgSrc(imgSrc)
-                .writerMemberId(writer)
-                .createDt(LocalDate.now())
-                .build();
-    }
-
-
 }
