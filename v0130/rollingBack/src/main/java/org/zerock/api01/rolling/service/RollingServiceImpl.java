@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zerock.api01.common.dto.PageRequestDTO;
 import org.zerock.api01.common.dto.PageResultDTO;
 import org.zerock.api01.rolling.dto.RollingDTO;
+import org.zerock.api01.rolling.dto.RollingSearchType;
 import org.zerock.api01.rolling.mapper.RollingMapper;
 
 import java.util.List;

@@ -10,6 +10,7 @@ import org.zerock.api01.common.dto.ResultDTO;
 import org.zerock.api01.rolling.dto.AddRollingRequest;
 import org.zerock.api01.rolling.dto.ModifyRollingRequest;
 import org.zerock.api01.rolling.dto.RollingDTO;
+import org.zerock.api01.rolling.dto.RollingPageRequestDTO;
 import org.zerock.api01.rolling.service.RollingService;
 import org.zerock.api01.rolling.vo.RollingVO;
 
@@ -21,9 +22,9 @@ public class RollingController {
     private final RollingService rollingService;
 
     @GetMapping("list")
-    public PageResultDTO<RollingDTO> getList(PageRequestDTO pageRequestDTO) {
+    public PageResultDTO<RollingDTO> getList(RollingPageRequestDTO rollingPageRequestDTO) {
 
-        return rollingService.getList(pageRequestDTO);
+        return rollingService.getList(rollingPageRequestDTO);
     }
 
     @GetMapping("{id}")
