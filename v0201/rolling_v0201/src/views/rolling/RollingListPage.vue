@@ -26,7 +26,7 @@ const pageSearch = ref({
 })
 
 const handleMoveAdd = () => {
-  router.push({name: 'RollingAddPage'})
+  router.push({name: 'RollingAddPage', query: pageSearch.value})
 }
 
 const handleMoveDetail = (id) => {
@@ -36,9 +36,7 @@ const handleMoveDetail = (id) => {
 const handleChangePage = (pageNumber) => {
   // 이동할 페이지 pageSearch 에 저장
   pageSearch.value.page = pageNumber
-  router.push({
-    name: 'RollingListPage', query: pageSearch.value
-  })
+  router.push({name: 'RollingListPage', query: pageSearch.value})
 }
 
 //searchInfo { types: null, keyword: null }

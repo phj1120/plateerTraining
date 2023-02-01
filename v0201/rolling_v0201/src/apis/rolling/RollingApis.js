@@ -4,7 +4,7 @@ import axios from "axios";
 const domain = 'http://localhost:8080'
 
 export const addRolling = async (rolling) => {
-  const res = await axios.post(`${domain}/rolling`, rolling)
+  const res = await axios.post(`${domain}/api/rollings`, rolling)
   return res.data
 }
 
@@ -23,12 +23,12 @@ export const getRollingList = async (pageSearch) => {
   return res.data
 }
 
-export const modRolling = async (rolling) => {
+export const modifyRolling = async (rolling) => {
   const res = await axios.put(`${domain}/api/rollings/${rolling.id}`, rolling)
   return res.data
 }
 
-export const delRolling = async (id) => {
+export const deleteRolling = async (id) => {
   const res = await axios.delete(`${domain}/api/rollings/${id}`)
   return res.data
 }

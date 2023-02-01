@@ -34,8 +34,8 @@
     <tr>
       <th class="text-center"></th>
       <td class="text-center">
-        <v-btn class="ma-4" color="success" @click="emits('handleMoveList')">List</v-btn>
-        <v-btn class="ma-4" color="info" @click="emits('handleMoveModify')">MOD</v-btn>
+        <v-btn class="ma-4" color="success" @click="clickListBtn">목록</v-btn>
+        <v-btn class="ma-4" color="info" @click="clickModifyBtn">수정</v-btn>
       </td>
     </tr>
     </tbody>
@@ -46,19 +46,26 @@
 import {getRolling} from "@/apis/rolling/RollingApis";
 import {onMounted, ref} from "vue";
 
-
 const rolling = ref({})
 const props = defineProps(['id'])
 const emits = defineEmits(['handleMoveModify', 'handleMoveList'])
 
+const clickListBtn = () => {
+  emits('handleMoveList')
+}
+
+const clickModifyBtn = () => {
+  emits('handleMoveModify')
+}
 
 const getRollingOne = async () => {
   const res = await getRolling(props.id)
   rolling.value = res.data
 }
 
+// TODO 실행 해 봤는데 둘의 차이를 모르겠음
+// getRollingOne()
 onMounted(() => {
-  console.log()
   getRollingOne()
 })
 </script>

@@ -19,16 +19,16 @@
         </v-col>
 
         <v-col cols="12" md="7">
-          <v-text-field v-model="rolling.wno" label="Writer" required></v-text-field>
+          <v-text-field v-model="rolling.wno" label="Writer" readonly></v-text-field>
         </v-col>
 
         <v-col cols="12" md="7">
-          <v-text-field v-model="rolling.createDt" label="Create Date" required></v-text-field>
+          <v-text-field v-model="rolling.createDt" label="Create Date" readonly></v-text-field>
         </v-col>
 
         <v-col cols="12" md="7">
-          <v-btn class="ma-2 ma-xl-auto" color="error" @click="delRollingOne" style="float: right">DEL</v-btn>
-          <v-btn class="ma-2 ma-xl-auto" color="success" @click="modeRollingOne" style="float: right">MOD</v-btn>
+          <v-btn class="ma-2 ma-xl-auto" color="error" @click="clickModifyBtn" style="float: right">DEL</v-btn>
+          <v-btn class="ma-2 ma-xl-auto" color="success" @click="clickDeleteBtn" style="float: right">MOD</v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import {delRolling, getRolling, modRolling} from "@/apis/rolling/RollingApis";
+import {deleteRolling, getRolling, modifyRolling} from "@/apis/rolling/RollingApis";
 import {onMounted, ref} from "vue";
 
 
@@ -68,13 +68,13 @@ const getRollingOne = async () => {
   console.log(rolling.value)
 }
 
-const modeRollingOne = async () => {
-  await modRolling(rolling.value)
+const clickModifyBtn = async () => {
+  await modifyRolling(rolling.value)
   dialog.value = true
 }
 
-const delRollingOne = async () => {
-  await delRolling(props.id)
+const clickDeleteBtn = async () => {
+  await deleteRolling(props.id)
   dialog.value = true
 }
 

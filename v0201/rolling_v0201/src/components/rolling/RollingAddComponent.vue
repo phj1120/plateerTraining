@@ -6,23 +6,16 @@
     <v-container>
       <v-row class="justify-center">
         <v-col cols="12" md="7">
-          <v-text-field v-model="rollingInfo.target" label="Target" required></v-text-field>
+          <v-text-field v-model="rolling.target" label="Target" required></v-text-field>
         </v-col>
-
         <v-col cols="12" md="7">
-          <v-text-field v-model="rollingInfo.imgSrc" label="Image" required></v-text-field>
+          <v-text-field v-model="rolling.imgSrc" label="Image" required></v-text-field>
         </v-col>
-
         <v-col cols="12" md="7">
-          <v-text-field v-model="rollingInfo.wno" label="Writer" required></v-text-field>
+          <v-text-field v-model="rolling.title" label="Title" required></v-text-field>
         </v-col>
-
         <v-col cols="12" md="7">
-          <v-text-field v-model="rollingInfo.createDt" label="Create Date" required></v-text-field>
-        </v-col>
-
-        <v-col cols="12" md="7">
-          <v-btn class="ma-xl-auto" color="success" @click="handlClickAdd" style="float: right">ADD</v-btn>
+          <v-btn class="ma-xl-auto" color="success" @click="clickAdd" style="float: right">ADD</v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -33,12 +26,12 @@
 import {ref} from "vue";
 import {addRolling} from "@/apis/rolling/RollingApis";
 
-
-const rollingInfo = ref({target: null, imgSrc: null, wno: null, createDt: null})
+const rolling = ref({target: null, imgSrc: null, title: null})
 
 const emits = defineEmits(['handleMoveList'])
-const handlClickAdd = async () => {
-  const res = await addRolling(rollingInfo.value)
+const clickAdd = async () => {
+  const res = await addRolling(rolling.value)
+  // TODO 응답 결과에 따른 처리
   emits('handleMoveList')
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <BaseLayout>
-    <RollingModifyComponent :id="props.id" @handleMoveDetail="handleMoveDetail"
+    <RollingModifyComponent :id="id" @handleMoveDetail="handleMoveDetail"
                             @handleMoveList="handleMoveList"></RollingModifyComponent>
   </BaseLayout>
 </template>
@@ -10,12 +10,11 @@ import BaseLayout from "@/layouts/rolling/BaseLayout.vue";
 import RollingModifyComponent from "@/components/rolling/RollingModifyComponent.vue";
 import {useRoute, useRouter} from "vue-router";
 
-
-const props = defineProps(['id'])
-
 const route = useRoute()
 const router = useRouter()
-const handleMoveDetail = (id) => {
+const id = route.params.id
+
+const handleMoveDetail = () => {
   router.push({name: 'RollingDetailPage', params: {id: id}})
 }
 
