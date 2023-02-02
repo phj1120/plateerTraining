@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const domain = 'http://192.168.1.127:8080'
-const domain = 'http://localhost:8080'
+const domain = 'http://192.168.1.127:8080'
+// const domain = 'http://localhost:8080'
 
 export const addRolling = async (rolling) => {
   const res = await axios.post(`${domain}/api/rollings`, rolling)

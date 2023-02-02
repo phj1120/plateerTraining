@@ -51,7 +51,6 @@ const handleRollingSearch = (searchInfo) => {
 }
 
 router.beforeEach((to, from, next) => {
-  //
   pageSearch.value.page = to.query.page
   pageSearch.value.size = to.query.size
   pageSearch.value.types = to.query.types
