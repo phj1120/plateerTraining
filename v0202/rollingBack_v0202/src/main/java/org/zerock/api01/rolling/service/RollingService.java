@@ -11,7 +11,7 @@ public interface RollingService {
 
     RollingDTO getRolling(Long id);
 
-    void addRolling(AddRollingDTO addRollingDTO);
+    RollingDTO addRolling(AddRollingDTO addRollingDTO);
 
     void modifyRolling(ModifyRollingDTO modifyRollingDTO);
 

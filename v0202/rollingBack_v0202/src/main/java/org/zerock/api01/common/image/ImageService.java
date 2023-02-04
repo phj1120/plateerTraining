@@ -28,8 +28,20 @@ public class ImageService {
     @Value("${basePath}")
     private String basePath;
 
-    public SaveResult saveImages(SaveImagesDto dto) {
-        List<MultipartFile> files = dto.getFiles();
+    public Resource readImage(String storedName) {
+        String imagePath = basePath + "/" + storedName;
+        FileSystemResource file = new FileSystemResource(imagePath);
+
+        log.info("[Read] : {}", storedName);
+        return file;
+    }
+
+    public SaveResult saveImages(SaveImagesDto saveImagesDto) {
+        return saveImages(saveImagesDto.getFiles());
+    }
+
+
+    public SaveResult saveImages(List<MultipartFile> files) {
         SaveResult saveResult = new SaveResult();
 
         for (int i = 0; i < files.size(); i++) {
@@ -76,13 +88,6 @@ public class ImageService {
                 .toFile(new File(basePath + "/s_" + storedName));
     }
 
-    public Resource readImage(String storedName) {
-        String imagePath = basePath + "/" + storedName;
-        FileSystemResource file = new FileSystemResource(imagePath);
-
-        log.info("[Read] : {}", storedName);
-        return file;
-    }
 
     private void initFolder() {
         File folder = new File(basePath);
@@ -110,5 +115,9 @@ public class ImageService {
         String storedName = UUID.randomUUID() + "." + extension;
 
         return storedName;
+    }
+
+    public void setRollingId(Long id, List<String> names) {
+        fileMapper.setRollingId(id, names);
     }
 }

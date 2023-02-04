@@ -31,11 +31,12 @@ public class RollingController {
 
     // 추가
     @PostMapping
-    public ResultDTO<AddRollingDTO> addRolling(@RequestBody AddRollingRequest request) {
+    public ResultDTO<AddRollingResponse> addRolling(@ModelAttribute AddRollingRequest request) {
         AddRollingDTO addRollingDTO = new AddRollingDTO(request);
-        rollingService.addRolling(addRollingDTO);
 
-        return ResultDTO.<AddRollingDTO>builder().data(addRollingDTO).build();
+        RollingDTO rollingDTO = rollingService.addRolling(addRollingDTO);
+
+        return ResultDTO.<AddRollingResponse>builder().data(new AddRollingResponse(rollingDTO)).build();
     }
 
     // 수정

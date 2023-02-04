@@ -47,9 +47,9 @@
     </select>
 
     <insert id="addRolling"
-            useGeneratedKeys="true" keyProperty="id">
+            useGeneratedKeys="true" keyProperty="rollingId">
         insert into tbl_rolling (title, target, img_src, create_dt, writer_member_id)
-        value (#{title}, #{target}, #{imgSrc}, #{createDt}, #{writer})
+        value (#{title}, #{target}, #{imgSrc}, #{createDt}, #{writerMemberId})
     </insert>
 
     <update id="modifyRolling">

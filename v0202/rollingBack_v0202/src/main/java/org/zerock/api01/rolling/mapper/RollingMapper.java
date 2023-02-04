@@ -1,6 +1,5 @@
 package org.zerock.api01.rolling.mapper;
 
-import org.zerock.api01.rolling.dto.AddRollingDTO;
 import org.zerock.api01.rolling.dto.ModifyRollingDTO;
 import org.zerock.api01.rolling.dto.RollingDTO;
 import org.zerock.api01.rolling.dto.RollingPageRequestDTO;
@@ -14,7 +13,7 @@ public interface RollingMapper {
 
     RollingDTO getRolling(Long id);
 
-    int addRolling(AddRollingDTO addRollingDTO);
+    int addRolling(RollingDTO rollingDTO);
 
     int modifyRolling(ModifyRollingDTO modifyRollingDTO);
 

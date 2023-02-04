@@ -6,9 +6,18 @@
 
 
     <insert id="addFile">
-        insert into tbl_file (file_name, original_name, file_size, create_dt, rno)
-        value (#{fileName}, #{originalName}, #{fileSize}, #{createDt}, #{rno})
+        insert into tbl_file (file_name, original_name, file_size, create_dt)
+        value (#{fileName}, #{originalName}, #{fileSize}, #{createDt})
     </insert>
+
+    <update id="setRollingId">
+        update tbl_file set
+        rno = #{id}
+        where file_name in
+        <foreach collection="names" item="name" separator="," open="(" close=")">
+            #{name}
+        </foreach>
+    </update>
 
 
 </mapper>

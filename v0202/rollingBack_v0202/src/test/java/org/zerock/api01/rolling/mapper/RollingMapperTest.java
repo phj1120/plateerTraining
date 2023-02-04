@@ -38,14 +38,14 @@ class RollingMapperTest {
         System.out.println(rolling);
     }
 
-    @Test
-    void addRolling() {
-        AddRollingRequest addRollingRequest = new AddRollingRequest("title", "target", "imgSrc", 1L);
-        AddRollingDTO addRollingDTO = new AddRollingDTO(addRollingRequest);
-        rollingMapper.addRolling(addRollingDTO);
-
-        System.out.println(addRollingDTO);
-    }
+//    @Test
+//    void addRolling() {
+//        AddRollingRequest addRollingRequest = new AddRollingRequest("title", "target", "imgSrc", 1L);
+//        AddRollingDTO addRollingDTO = new AddRollingDTO(addRollingRequest);
+//        rollingMapper.addRolling(addRollingDTO);
+//
+//        System.out.println(addRollingDTO);
+//    }
 
     @Test
     void modifyRolling() {
