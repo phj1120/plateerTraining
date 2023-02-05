@@ -13,10 +13,10 @@ public class AddRollingResponse {
     private Long writer;
     private String thumbnailPath; // 썸네일 인덱스
 
-    public AddRollingResponse(RollingDTO rollingDTO) {
-        this.title = rollingDTO.getTitle();
-        this.target = rollingDTO.getTarget();
-        this.writer = rollingDTO.getRollingId();
-        this.thumbnailPath = rollingDTO.getImgSrc();
+    public AddRollingResponse(RollingInfoDTO rollingInfoDTO) {
+        this.title = rollingInfoDTO.getTitle();
+        this.target = rollingInfoDTO.getTarget();
+        this.writer = rollingInfoDTO.getId();
+        this.thumbnailPath = rollingInfoDTO.getImgSrc();
     }
 }

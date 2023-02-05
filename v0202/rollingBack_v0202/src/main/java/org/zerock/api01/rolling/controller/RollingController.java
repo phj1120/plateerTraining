@@ -17,26 +17,25 @@ public class RollingController {
     private final RollingService rollingService;
 
     @GetMapping("list")
-    public PageResultDTO<RollingDTO> getList(RollingPageRequestDTO rollingPageRequestDTO) {
+    public PageResultDTO<RollingInfoDTO> getList(RollingPageRequestDTO rollingPageRequestDTO) {
 
         return rollingService.getList(rollingPageRequestDTO);
     }
 
     @GetMapping("{id}")
-    public ResultDTO<RollingDTO> getRolling(@PathVariable("id") Long id) {
-        RollingDTO rollingDTO = rollingService.getRolling(id);
+    public ResultDTO<RollingInfoDTO> getRolling(@PathVariable("id") Long id) {
+        RollingInfoDTO rollingInfoDTO = rollingService.getRolling(id);
 
-        return ResultDTO.<RollingDTO>builder().data(rollingDTO).build();
+        return ResultDTO.<RollingInfoDTO>builder().data(rollingInfoDTO).build();
     }
 
     // 추가
     @PostMapping
     public ResultDTO<AddRollingResponse> addRolling(@ModelAttribute AddRollingRequest request) {
         AddRollingDTO addRollingDTO = new AddRollingDTO(request);
+        RollingInfoDTO rollingInfoDTO = rollingService.addRolling(addRollingDTO);
 
-        RollingDTO rollingDTO = rollingService.addRolling(addRollingDTO);
-
-        return ResultDTO.<AddRollingResponse>builder().data(new AddRollingResponse(rollingDTO)).build();
+        return ResultDTO.<AddRollingResponse>builder().data(new AddRollingResponse(rollingInfoDTO)).build();
     }
 
     // 수정

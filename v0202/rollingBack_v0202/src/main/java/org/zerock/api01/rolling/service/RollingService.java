@@ -1,17 +1,14 @@
 package org.zerock.api01.rolling.service;
 
 import org.zerock.api01.common.dto.PageResultDTO;
-import org.zerock.api01.rolling.dto.AddRollingDTO;
-import org.zerock.api01.rolling.dto.ModifyRollingDTO;
-import org.zerock.api01.rolling.dto.RollingDTO;
-import org.zerock.api01.rolling.dto.RollingPageRequestDTO;
+import org.zerock.api01.rolling.dto.*;
 
 public interface RollingService {
-    PageResultDTO<RollingDTO> getList(RollingPageRequestDTO rollingPageRequestDTO);
+    PageResultDTO<RollingInfoDTO> getList(RollingPageRequestDTO rollingPageRequestDTO);
 
-    RollingDTO getRolling(Long id);
+    RollingInfoDTO getRolling(Long id);
 
-    RollingDTO addRolling(AddRollingDTO addRollingDTO);
+    RollingInfoDTO addRolling(AddRollingDTO addRollingDTO);
 
     void modifyRolling(ModifyRollingDTO modifyRollingDTO);
 

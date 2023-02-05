@@ -8,13 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.zerock.api01.common.dto.PageResultDTO;
 import org.zerock.api01.common.image.ImageService;
 import org.zerock.api01.common.image.dto.SaveResult;
-import org.zerock.api01.rolling.dto.AddRollingDTO;
-import org.zerock.api01.rolling.dto.ModifyRollingDTO;
-import org.zerock.api01.rolling.dto.RollingDTO;
-import org.zerock.api01.rolling.dto.RollingPageRequestDTO;
+import org.zerock.api01.rolling.dto.*;
 import org.zerock.api01.rolling.mapper.RollingMapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,28 +23,35 @@ public class RollingServiceImpl implements RollingService {
     private final ImageService imageService;
 
     @Override
-    public PageResultDTO<RollingDTO> getList(RollingPageRequestDTO rollingPageRequestDTO) {
-        List<RollingDTO> dtoList = rollingMapper.getList(rollingPageRequestDTO);
-
+    public PageResultDTO<RollingInfoDTO> getList(RollingPageRequestDTO rollingPageRequestDTO) {
+        List<RollingInfoDTO> dtoList = rollingMapper.getList(rollingPageRequestDTO).stream()
+                .map(rollingDTO -> new RollingInfoDTO(rollingDTO))
+                .collect(Collectors.toList());
         int total = rollingMapper.getCount(rollingPageRequestDTO);
 
-        PageResultDTO<RollingDTO> pageResponseDTO = PageResultDTO.<RollingDTO>withAll().dtoList(dtoList).total(total).pageRequestDTO(rollingPageRequestDTO).build();
+        PageResultDTO<RollingInfoDTO> pageResponseDTO = PageResultDTO.<RollingInfoDTO>withAll()
+                .dtoList(dtoList)
+                .total(total)
+                .pageRequestDTO(rollingPageRequestDTO)
+                .build();
 
         return pageResponseDTO;
     }
 
     @Override
-    public RollingDTO getRolling(Long id) {
+    public RollingInfoDTO getRolling(Long id) {
         RollingDTO rollingDTO = rollingMapper.getRolling(id);
         if (rollingDTO == null) {
             throw new IllegalArgumentException("조회 실패");
         }
 
-        return rollingDTO;
+        RollingInfoDTO rollingInfoDTO = new RollingInfoDTO(rollingDTO);
+
+        return rollingInfoDTO;
     }
 
     @Override
-    public RollingDTO addRolling(AddRollingDTO addRollingDTO) {
+    public RollingInfoDTO addRolling(AddRollingDTO addRollingDTO) {
         RollingDTO rollingDTO;
         if (addRollingDTO.getImages().isEmpty()) {
             rollingDTO = addRollingDTO.convert();
@@ -55,7 +60,7 @@ public class RollingServiceImpl implements RollingService {
                 throw new IllegalArgumentException("추가 실패");
             }
 
-            return rollingDTO;
+            return new RollingInfoDTO(rollingDTO);
         }
 
         // 사진 저장
@@ -74,7 +79,7 @@ public class RollingServiceImpl implements RollingService {
         List<String> paths = saveResult.getPaths();
         imageService.setRollingId(rollingDTO.getRollingId(), paths);
 
-        return rollingDTO;
+        return new RollingInfoDTO(rollingDTO);
     }
 
     @Override
