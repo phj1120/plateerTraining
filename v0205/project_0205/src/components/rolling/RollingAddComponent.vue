@@ -97,8 +97,8 @@ const handleClickAdd = async () => {
 }
 
 const addFile = (files) => {
-  for (let i = 0; i < files.value.length; i++) {
-    rollingInfo.value.files.push(files.value[i])
+  for (let i = 0; i < files.length; i++) {
+    rollingInfo.value.files.push(files[i])
   }
 }
 

@@ -30,13 +30,20 @@ const handleChangeFile = () => {
   if (!files.value) {
     return
   }
+  const correctImage = []
   files.value.forEach((file) => {
     if (!fileRule(file)) {
+      count++
       return
     }
+    correctImage.push(file)
   })
-  emits('addFile', files)
+  emits('addFile', correctImage)
   files.value = [] // 값이 남는 것을 방지하기 위해 초기화
+
+  if(count !== 0){
+    dialog.value = true
+  }
 }
 
 const fileRule = (file) => {
