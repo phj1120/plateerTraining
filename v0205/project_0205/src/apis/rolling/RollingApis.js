@@ -1,12 +1,23 @@
 import axios from "axios";
 
-
 // const domain = 'http://192.168.1.127:8080'
 const domain = 'http://localhost:8080'
 
+export const addRolling = async (rollingInfo) => {
+  const formData = new FormData();
+  formData.append('title', rollingInfo.title)
+  formData.append('target', rollingInfo.target)
+  if (rollingInfo.files.length != 0) {
+    formData.append('thumbnailIndex', rollingInfo.fixFile)
 
-export const addRolling = async (rolling) => {
-  const res = await axios.post(`${domain}/api/rollings`, rolling)
+    for (let i = 0; i < rollingInfo.files.length; i++) {
+      formData.append(`images[${i}]`, rollingInfo.files[i])
+    }
+  }
+
+  const res = await axios.post(`${domain}/api/rollings`, formData,
+    {headers: {'Content-Type': 'multipart/form-data'}})
+
   return res.data
 }
 
@@ -22,8 +33,8 @@ export const getRollingList = async (pageSearch) => {
   return res.data
 }
 
-export const getRolling = async ( id ) => {
-  const res = await axios.get(`${domain}/api/rollings/${ id }`)
+export const getRolling = async (id) => {
+  const res = await axios.get(`${domain}/api/rollings/${id}`)
   return res.data
 }
 
