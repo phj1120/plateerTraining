@@ -5,23 +5,22 @@
 <mapper namespace="org.zerock.api01.rolling.mapper.RollingMapper">
     <sql id="search">
         <bind name="pattern" value="'%' + _parameter.getKeyword() + '%'"/>
-        <where>
-            <foreach item="type" collection="types" open="(" close=")" separator="OR">
-                <if test="type.name() == 'TITLE'">
-                    title like #{pattern}
-                </if>
-                <if test="type.name() == 'TARGET'">
-                    target like #{pattern}
-                </if>
-            </foreach>
-
-        </where>
+        and
+        <foreach item="type" collection="types" open="(" close=")" separator="OR">
+            <if test="type.name() == 'TITLE'">
+                title like #{pattern}
+            </if>
+            <if test="type.name() == 'TARGET'">
+                target like #{pattern}
+            </if>
+        </foreach>
     </sql>
 
     <select id="getList"
             resultType="RollingDTO">
         select *
         from tbl_rolling
+        where del_flag = false
         <if test="keyword != null and types != null">
             <include refid="search"></include>
         </if>
@@ -34,6 +33,7 @@
         count(rolling_id)
         from
         tbl_rolling
+        where del_flag = false
         <if test="keyword != null and types != null">
             <include refid="search"></include>
         </if>
@@ -43,7 +43,7 @@
             resultType="RollingDTO">
         select *
         from tbl_rolling
-        where rolling_id = #{id}
+        where rolling_id = #{id} and del_flag = false
     </select>
 
     <insert id="addRolling"
@@ -71,8 +71,12 @@
         where rolling_id = #{id}
     </update>
 
-    <delete id="deleteRolling">
-        delete from tbl_rolling where rolling_id = #{id}
-    </delete>
-
+    <update id="deleteRolling">
+        UPDATE
+        tbl_rolling
+        SET
+        del_flag = true
+        WHERE
+        rolling_id = #{id}
+    </update>
 </mapper>
