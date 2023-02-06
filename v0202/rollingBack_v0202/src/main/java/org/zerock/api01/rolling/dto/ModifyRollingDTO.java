@@ -35,7 +35,7 @@ public class ModifyRollingDTO {
                 .rollingId(this.id)
                 .title(this.title)
                 .target(this.target)
-                .updateDt(LocalDate.now())
+                .updateDt(this.updateDt)
                 .build();
     }
 

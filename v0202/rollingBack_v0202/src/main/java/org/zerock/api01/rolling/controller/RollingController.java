@@ -18,15 +18,16 @@ public class RollingController {
 
     @GetMapping("list")
     public PageResultDTO<RollingInfoDTO> getList(RollingPageRequestDTO rollingPageRequestDTO) {
-
         return rollingService.getList(rollingPageRequestDTO);
     }
 
     @GetMapping("{id}")
-    public ResultDTO<RollingDetailDTO> getRolling(@PathVariable("id") Long id) {
-        RollingDetailDTO rollingDetailDTO = rollingService.getRolling(id);
+    public ResultDTO<RollingWithImageNameDTO> getRolling(@PathVariable("id") Long id) {
+        RollingWithImageNameDTO rollingWithImageNameDTO = rollingService.getRolling(id);
 
-        return ResultDTO.<RollingDetailDTO>builder().data(rollingDetailDTO).build();
+        return ResultDTO.<RollingWithImageNameDTO>builder()
+                .data(rollingWithImageNameDTO)
+                .build();
     }
 
     // 추가
@@ -35,17 +36,21 @@ public class RollingController {
         AddRollingDTO addRollingDTO = new AddRollingDTO(request);
         RollingInfoDTO rollingInfoDTO = rollingService.addRolling(addRollingDTO);
 
-        return ResultDTO.<AddRollingResponse>builder().data(new AddRollingResponse(rollingInfoDTO)).build();
+        return ResultDTO.<AddRollingResponse>builder()
+                .data(new AddRollingResponse(rollingInfoDTO))
+                .build();
     }
 
     // 수정
     @PutMapping("{rollingId}")
-    public ResultDTO modifyRolling(@PathVariable("rollingId") Long id,
-                                   @ModelAttribute ModifyRollingRequest request) {
+    public ResultDTO<RollingWithImageNameDTO> modifyRolling(@PathVariable("rollingId") Long id,
+                                                            @ModelAttribute ModifyRollingRequest request) {
         ModifyRollingDTO modifyRollingDTO = new ModifyRollingDTO(id, request);
-        rollingService.modifyRolling(modifyRollingDTO);
+        RollingWithImageNameDTO rollingWithImageNameDTO = rollingService.modifyRolling(modifyRollingDTO);
 
-        return ResultDTO.builder().data("ok").build();
+        return ResultDTO.<RollingWithImageNameDTO>builder()
+                .data(rollingWithImageNameDTO)
+                .build();
     }
 
     // 삭제
@@ -53,6 +58,8 @@ public class RollingController {
     public ResultDTO<Long> deleteRolling(@PathVariable("rollingId") Long id) {
         rollingService.deleteRolling(id);
 
-        return ResultDTO.<Long>builder().data(id).build();
+        return ResultDTO.<Long>builder()
+                .data(id)
+                .build();
     }
 }

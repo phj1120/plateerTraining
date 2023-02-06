@@ -29,7 +29,7 @@
 
 
     <select id="getAllFileNames"
-    resultType="String">
+            resultType="String">
         select file_name
         from tbl_file
     </select>

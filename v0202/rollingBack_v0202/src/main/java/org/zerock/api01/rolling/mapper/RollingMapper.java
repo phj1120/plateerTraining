@@ -1,6 +1,5 @@
 package org.zerock.api01.rolling.mapper;
 
-import org.zerock.api01.rolling.dto.ModifyRollingDTO;
 import org.zerock.api01.rolling.dto.RollingDTO;
 import org.zerock.api01.rolling.dto.RollingPageRequestDTO;
 

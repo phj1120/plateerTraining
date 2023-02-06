@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Component
@@ -20,15 +19,13 @@ public class ImageScheduler {
 
     private final ImageService imageService;
 
-
-    @Scheduled(cron = "44 44 4 * * *")
+    @Scheduled(cron = "0 0 4 * * *")
     public void deleteImages() {
         // DB 에 있는 이미지 목록 조회
-        Set<String> allNames = imageService.getAllFileNames().stream().collect(Collectors.toSet());
+        Set<String> allNames = imageService.getAllFileNames();
 
         // 이미지 목록 조회
-        String DATA_DIRECTORY = basePath;
-        File dir = new File(DATA_DIRECTORY);
+        File dir = new File(basePath);
         String[] filenames = dir.list();
 
         // 둘이 비교해 없는 이미지 삭제
@@ -36,13 +33,17 @@ public class ImageScheduler {
             if (fileName.startsWith("s_") || allNames.contains(fileName)) {
                 continue;
             }
+            deleteFile(basePath + "/" + fileName);
+            deleteFile(basePath + "/s_" + fileName);
+        }
+    }
 
-            log.info(fileName);
+    private void deleteFile(String fileName) {
+        try {
             File deleteFile = new File(basePath + "/" + fileName);
             deleteFile.delete();
-            File deleteThumbnail = new File(basePath + "/s_" + fileName);
-            deleteThumbnail.delete();
+        } catch (NullPointerException npe) {
+            log.info("[존재하지 않는 파일]: " + fileName);
         }
-
     }
 }

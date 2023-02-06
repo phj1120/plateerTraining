@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
@@ -37,7 +38,7 @@ public class SaveResult {
         return success.get(index).getPath();
     }
 
-    public List<String> getPaths() {
-        return success.stream().map(s -> s.getPath()).collect(Collectors.toList());
+    public Set<String> getPaths() {
+        return success.stream().map(s -> s.getPath()).collect(Collectors.toSet());
     }
 }

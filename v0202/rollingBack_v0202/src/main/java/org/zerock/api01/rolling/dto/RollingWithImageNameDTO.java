@@ -6,28 +6,32 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RollingDetailDTO {
+public class RollingWithImageNameDTO {
     private Long id;
     private String title;
     private String target;
-    private List<String> imgSrcs;
+    private Set<String> imgSrcs;
     private Long writer;
     private LocalDate createDt;
     private LocalDate updateDt;
 
-    public RollingDetailDTO(RollingDTO rollingDTO, List<String> imgSrcs) {
+    public RollingWithImageNameDTO(RollingDTO rollingDTO) {
         this.id = rollingDTO.getRollingId();
         this.title = rollingDTO.getTitle();
         this.target = rollingDTO.getTarget();
         this.writer = rollingDTO.getWriterMemberId();
         this.createDt = rollingDTO.getCreateDt();
         this.updateDt = rollingDTO.getUpdateDt();
+    }
+
+    public RollingWithImageNameDTO(RollingDTO rollingDTO, Set<String> imgSrcs) {
+        this(rollingDTO);
         this.imgSrcs = imgSrcs;
     }
 }

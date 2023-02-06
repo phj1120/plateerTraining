@@ -33,6 +33,7 @@ public class RollingInfoDTO {
         this.createDt = rollingDTO.getCreateDt();
         this.updateDt = rollingDTO.getUpdateDt();
         this.imgSrc = rollingDTO.getImgSrc();
+        // 이미지 기본 경로 추가
         if (rollingDTO.getImgSrc() == null) {
             this.imgSrc = "s_0e1249ad-38c1-4fd9-a4f5-7360cb4464d4.jpg";
         }

@@ -12,6 +12,7 @@ import org.zerock.api01.rolling.dto.*;
 import org.zerock.api01.rolling.mapper.RollingMapper;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,10 +25,10 @@ public class RollingServiceImpl implements RollingService {
 
     @Override
     public PageResultDTO<RollingInfoDTO> getList(RollingPageRequestDTO rollingPageRequestDTO) {
+        int total = rollingMapper.getCount(rollingPageRequestDTO);
         List<RollingInfoDTO> dtoList = rollingMapper.getList(rollingPageRequestDTO).stream()
                 .map(rollingDTO -> new RollingInfoDTO(rollingDTO))
                 .collect(Collectors.toList());
-        int total = rollingMapper.getCount(rollingPageRequestDTO);
 
         PageResultDTO<RollingInfoDTO> pageResponseDTO = PageResultDTO.<RollingInfoDTO>withAll()
                 .dtoList(dtoList)
@@ -39,19 +40,22 @@ public class RollingServiceImpl implements RollingService {
     }
 
     @Override
-    public RollingDetailDTO getRolling(Long id) {
+    public RollingWithImageNameDTO getRolling(Long id) {
         RollingDTO rollingDTO = rollingMapper.getRolling(id);
         if (rollingDTO == null) {
             throw new IllegalArgumentException("조회 실패");
         }
-        List<String> imagePaths = imageService.getImagePaths(rollingDTO.getRollingId());
+        Set<String> imagePaths = imageService.getImagePaths(rollingDTO.getRollingId());
 
-        return new RollingDetailDTO(rollingDTO, imagePaths);
+        return new RollingWithImageNameDTO(rollingDTO, imagePaths);
     }
 
+    // TODO 추가와 수정 중복코드 불어오는 메서드만 다른데 깔끔하게 처리할 방법 없나?
+    // 추가
     @Override
     public RollingInfoDTO addRolling(AddRollingDTO addRollingDTO) {
         RollingDTO rollingDTO;
+        // 이미지가 비어있는 경우 이미지 제외하고 요청 전송
         if (addRollingDTO.getImages().isEmpty()) {
             rollingDTO = addRollingDTO.convert();
             int count = rollingMapper.addRolling(rollingDTO);
@@ -75,16 +79,17 @@ public class RollingServiceImpl implements RollingService {
         }
 
         // 사진 DB 에 게시글 외래키로 추가
-        List<String> paths = saveResult.getPaths();
+        Set<String> paths = saveResult.getPaths();
         imageService.setRollingId(rollingDTO.getRollingId(), paths);
 
         return new RollingInfoDTO(rollingDTO);
     }
 
+    // 수정
     @Override
-    public RollingInfoDTO modifyRolling(ModifyRollingDTO modifyRollingDTO) {
+    public RollingWithImageNameDTO modifyRolling(ModifyRollingDTO modifyRollingDTO) {
         // 기존 사진 삭제
-        imageService.deleteImageByRollingId(modifyRollingDTO.getId());
+        imageService.deleteImage(modifyRollingDTO.getId());
 
         // 사진이 없는 경우 사진 저장 하지 않고 바로 수정
         RollingDTO rollingDTO;
@@ -95,32 +100,34 @@ public class RollingServiceImpl implements RollingService {
                 throw new IllegalArgumentException("추가 실패");
             }
 
-            return new RollingInfoDTO(rollingDTO);
+            return new RollingWithImageNameDTO(rollingDTO);
         }
 
         // 받아온 사진 저장
         List<MultipartFile> images = modifyRollingDTO.getImages();
         SaveResult saveResult = imageService.saveImages(images);
 
-        // 썸네일 포함해 저장
+        // Rolling 에 썸네일 정보 추가
         String thumbnailPath = "s_" + saveResult.getPath(modifyRollingDTO.getThumbnailIndex());
         rollingDTO = modifyRollingDTO.convert(thumbnailPath);
+
+        // Rolling 저장
         int count = rollingMapper.modifyRolling(rollingDTO);
         if (count != 1) {
             throw new IllegalArgumentException("추가 실패");
         }
 
         // 저장된 사진 외래키 업데이트
-        List<String> paths = saveResult.getPaths();
+        Set<String> paths = saveResult.getPaths();
         imageService.setRollingId(rollingDTO.getRollingId(), paths);
 
-        return new RollingInfoDTO(rollingDTO);
+        return new RollingWithImageNameDTO(rollingDTO, paths);
     }
 
     @Override
     public void deleteRolling(Long rollingId) {
         int count = rollingMapper.deleteRolling(rollingId);
-        imageService.deleteImageByRollingId(rollingId);
+        imageService.deleteImage(rollingId);
 
         if (count != 1) {
             throw new IllegalArgumentException("삭제 실패");

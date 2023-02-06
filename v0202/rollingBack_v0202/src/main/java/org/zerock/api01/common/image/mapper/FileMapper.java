@@ -2,16 +2,16 @@ package org.zerock.api01.common.image.mapper;
 
 import org.zerock.api01.common.image.dto.FileDTO;
 
-import java.util.List;
+import java.util.Set;
 
 public interface FileMapper {
     int addFile(FileDTO fileDTO);
 
-    int setRollingId(Long id, List<String> names);
+    int setRollingId(Long id, Set<String> names);
 
-    List<String> getImagePaths(Long id);
+    Set<String> getImagePaths(Long id);
 
     int deleteImageByRollingId(Long rollingId);
 
-    List<String> getAllFileNames();
+    Set<String> getAllFileNames();
 }

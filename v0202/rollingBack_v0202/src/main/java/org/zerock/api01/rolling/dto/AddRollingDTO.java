@@ -15,29 +15,18 @@ public class AddRollingDTO {
     private Long id;
     private String title;
     private String target;
-    private Long writer;
-    private LocalDate createDt;
     private List<MultipartFile> images;
+    private LocalDate createDt;
     private Integer thumbnailIndex; // 썸네일 인덱스
+    private Long writer;
 
     public AddRollingDTO(AddRollingRequest request) {
         this.title = request.getTitle();
         this.target = request.getTarget();
         this.writer = request.getWriter();
-        this.createDt = LocalDate.now();
         this.images = request.getImages();
         this.thumbnailIndex = request.getThumbnailIndex();
-    }
-
-    public RollingDTO convert(String thumbnailPath) {
-        return RollingDTO.builder()
-                .rollingId(this.id)
-                .title(this.title)
-                .writerMemberId(this.writer)
-                .target(this.target)
-                .imgSrc(thumbnailPath)
-                .createDt(this.createDt)
-                .build();
+        this.createDt = LocalDate.now();
     }
 
     public RollingDTO convert() {
@@ -48,5 +37,12 @@ public class AddRollingDTO {
                 .target(this.target)
                 .createDt(this.createDt)
                 .build();
+    }
+
+    public RollingDTO convert(String thumbnailPath) {
+        RollingDTO rollingDTO = this.convert();
+        rollingDTO.setImgSrc(thumbnailPath);
+
+        return rollingDTO;
     }
 }
