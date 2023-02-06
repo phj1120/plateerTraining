@@ -39,6 +39,7 @@ public class ImageScheduler {
                 continue;
             }
 
+            // TODO 예외 처리 깔끔하게 하는 방법
             try {
                 File deleteFile = new File(basePath + "/" + fileName);
                 deleteFile.delete();
@@ -54,7 +55,6 @@ public class ImageScheduler {
             } catch (NullPointerException npe) {
                 log.info("[존재하지 않는 파일]: " + fileName);
             }
-
         }
 
         return deletedImage;

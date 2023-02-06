@@ -9,6 +9,9 @@ import org.zerock.api01.common.dto.ResultDTO;
 import org.zerock.api01.rolling.dto.*;
 import org.zerock.api01.rolling.service.RollingService;
 
+// TODO Request, 계층간의 데이터 전송을 위한 DTO, Response 어떻게 나누는 것이 좋은지
+//  지금은 나누면 좋겠지 라는 생각으로 대부분 나눴는데,
+//  변환도 잦고, 비슷한 DTO 가 많아 너무 복잡함.
 @RestController
 @Log4j2
 @RequiredArgsConstructor
@@ -16,11 +19,13 @@ import org.zerock.api01.rolling.service.RollingService;
 public class RollingController {
     private final RollingService rollingService;
 
+    // 목록 조회
     @GetMapping("list")
-    public PageResultDTO<RollingInfoDTO> getList(RollingPageRequestDTO rollingPageRequestDTO) {
+    public PageResultDTO<RollingInfoDTO> getRollingList(RollingPageRequestDTO rollingPageRequestDTO) {
         return rollingService.getList(rollingPageRequestDTO);
     }
 
+    // 단건 조회
     @GetMapping("{id}")
     public ResultDTO<RollingWithImageNameDTO> getRolling(@PathVariable("id") Long id) {
         RollingWithImageNameDTO rollingWithImageNameDTO = rollingService.getRolling(id);
