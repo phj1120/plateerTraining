@@ -11,7 +11,7 @@ public interface FileMapper {
 
     List<String> getImagePaths(Long id);
 
-    int deleteById(Long id);
-
     int deleteImageByRollingId(Long rollingId);
+
+    List<String> getAllFileNames();
 }

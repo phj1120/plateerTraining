@@ -127,4 +127,8 @@ public class ImageService {
         return storedName;
     }
 
+    public List<String> getAllFileNames() {
+        return fileMapper.getAllFileNames();
+    }
+
 }

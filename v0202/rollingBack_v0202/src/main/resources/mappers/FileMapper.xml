@@ -26,4 +26,11 @@
         delete from tbl_file
         where rno = #{id}
     </delete>
+
+
+    <select id="getAllFileNames"
+    resultType="String">
+        select file_name
+        from tbl_file
+    </select>
 </mapper>

@@ -120,6 +120,8 @@ public class RollingServiceImpl implements RollingService {
     @Override
     public void deleteRolling(Long rollingId) {
         int count = rollingMapper.deleteRolling(rollingId);
+        imageService.deleteImageByRollingId(rollingId);
+
         if (count != 1) {
             throw new IllegalArgumentException("삭제 실패");
         }
