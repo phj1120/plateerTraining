@@ -15,7 +15,7 @@ public interface RollingMapper {
 
     int addRolling(RollingDTO rollingDTO);
 
-    int modifyRolling(ModifyRollingDTO modifyRollingDTO);
+    int modifyRolling(RollingDTO rollingDTO);
 
     int deleteRolling(Long rollingId);
 }

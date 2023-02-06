@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -12,5 +15,6 @@ import lombok.NoArgsConstructor;
 public class ModifyRollingRequest {
     private String title;
     private String target;
-    private String imgSrc;
+    private List<MultipartFile> images;
+    private Integer thumbnailIndex;
 }

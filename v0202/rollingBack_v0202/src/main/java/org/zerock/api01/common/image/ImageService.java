@@ -44,6 +44,13 @@ public class ImageService {
         return saveImages(saveImagesDto.getFiles());
     }
 
+    public void setRollingId(Long id, List<String> names) {
+        fileMapper.setRollingId(id, names);
+    }
+
+    public void deleteImageByRollingId(Long rollingId) {
+        fileMapper.deleteImageByRollingId(rollingId);
+    }
 
     public SaveResult saveImages(List<MultipartFile> files) {
         SaveResult saveResult = new SaveResult();
@@ -120,7 +127,4 @@ public class ImageService {
         return storedName;
     }
 
-    public void setRollingId(Long id, List<String> names) {
-        fileMapper.setRollingId(id, names);
-    }
 }

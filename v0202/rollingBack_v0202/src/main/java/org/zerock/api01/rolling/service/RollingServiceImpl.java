@@ -82,12 +82,39 @@ public class RollingServiceImpl implements RollingService {
     }
 
     @Override
-    public void modifyRolling(ModifyRollingDTO modifyRollingDTO) {
-        int count = rollingMapper.modifyRolling(modifyRollingDTO);
+    public RollingInfoDTO modifyRolling(ModifyRollingDTO modifyRollingDTO) {
+        // 기존 사진 삭제
+        imageService.deleteImageByRollingId(modifyRollingDTO.getId());
 
-        if (count < 1) {
-            throw new IllegalArgumentException("수정 실패");
+        // 사진이 없는 경우 사진 저장 하지 않고 바로 수정
+        RollingDTO rollingDTO;
+        if (modifyRollingDTO.getImages().isEmpty()) {
+            rollingDTO = modifyRollingDTO.convert();
+            int count = rollingMapper.modifyRolling(rollingDTO);
+            if (count != 1) {
+                throw new IllegalArgumentException("추가 실패");
+            }
+
+            return new RollingInfoDTO(rollingDTO);
         }
+
+        // 받아온 사진 저장
+        List<MultipartFile> images = modifyRollingDTO.getImages();
+        SaveResult saveResult = imageService.saveImages(images);
+
+        // 썸네일 포함해 저장
+        String thumbnailPath = "s_" + saveResult.getPath(modifyRollingDTO.getThumbnailIndex());
+        rollingDTO = modifyRollingDTO.convert(thumbnailPath);
+        int count = rollingMapper.modifyRolling(rollingDTO);
+        if (count != 1) {
+            throw new IllegalArgumentException("추가 실패");
+        }
+
+        // 저장된 사진 외래키 업데이트
+        List<String> paths = saveResult.getPaths();
+        imageService.setRollingId(rollingDTO.getRollingId(), paths);
+
+        return new RollingInfoDTO(rollingDTO);
     }
 
     @Override

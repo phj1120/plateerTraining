@@ -40,12 +40,12 @@ public class RollingController {
 
     // 수정
     @PutMapping("{rollingId}")
-    public ResultDTO<ModifyRollingDTO> modifyRolling(@PathVariable("rollingId") Long id,
-                                                     @RequestBody ModifyRollingRequest request) {
+    public ResultDTO modifyRolling(@PathVariable("rollingId") Long id,
+                                   @ModelAttribute ModifyRollingRequest request) {
         ModifyRollingDTO modifyRollingDTO = new ModifyRollingDTO(id, request);
         rollingService.modifyRolling(modifyRollingDTO);
 
-        return ResultDTO.<ModifyRollingDTO>builder().data(modifyRollingDTO).build();
+        return ResultDTO.builder().data("ok").build();
     }
 
     // 삭제

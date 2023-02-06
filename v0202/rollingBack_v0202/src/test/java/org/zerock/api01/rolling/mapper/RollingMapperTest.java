@@ -3,9 +3,12 @@ package org.zerock.api01.rolling.mapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.api01.rolling.dto.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -13,6 +16,9 @@ class RollingMapperTest {
 
     @Autowired
     RollingMapper rollingMapper;
+
+    @Autowired
+    MockMultipartFile mockMultipartFile;
 
     @Test
     void getList() {
@@ -52,10 +58,16 @@ class RollingMapperTest {
         Long rollingId = 684L;
 //        ModifyRollingRequest modifyRollingRequest = ModifyRollingRequest.builder().title(getNew("title")).build();
 //        ModifyRollingRequest modifyRollingRequest = ModifyRollingRequest.builder().target(getNew("title")).build();
-        ModifyRollingRequest modifyRollingRequest = ModifyRollingRequest.builder().imgSrc(getNew("title")).build();
+
+        List<MultipartFile> images = new ArrayList<>();
+        images.add(mockMultipartFile);
+        images.add(mockMultipartFile);
+
+        ModifyRollingRequest modifyRollingRequest = ModifyRollingRequest.builder()
+                .images(images).build();
 
         ModifyRollingDTO modifyRollingDTO = new ModifyRollingDTO(rollingId, modifyRollingRequest);
-        rollingMapper.modifyRolling(modifyRollingDTO);
+        rollingMapper.modifyRolling(modifyRollingDTO.convert());
 
         RollingDTO rolling = rollingMapper.getRolling(rollingId);
         System.out.println(rolling);

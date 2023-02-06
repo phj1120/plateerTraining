@@ -10,4 +10,8 @@ public interface FileMapper {
     int setRollingId(Long id, List<String> names);
 
     List<String> getImagePaths(Long id);
+
+    int deleteById(Long id);
+
+    int deleteImageByRollingId(Long rollingId);
 }

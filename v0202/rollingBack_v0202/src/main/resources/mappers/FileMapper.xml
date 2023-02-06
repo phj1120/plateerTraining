@@ -21,4 +21,9 @@
             #{name}
         </foreach>
     </update>
+
+    <delete id="deleteImageByRollingId">
+        delete from tbl_file
+        where rno = #{id}
+    </delete>
 </mapper>

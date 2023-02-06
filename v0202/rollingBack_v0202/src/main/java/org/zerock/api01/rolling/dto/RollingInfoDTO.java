@@ -29,9 +29,12 @@ public class RollingInfoDTO {
         this.id = rollingDTO.getRollingId();
         this.title = rollingDTO.getTitle();
         this.target = rollingDTO.getTarget();
-        this.imgSrc = rollingDTO.getImgSrc();
         this.writer = rollingDTO.getWriterMemberId();
         this.createDt = rollingDTO.getCreateDt();
         this.updateDt = rollingDTO.getUpdateDt();
+        this.imgSrc = rollingDTO.getImgSrc();
+        if (rollingDTO.getImgSrc() == null) {
+            this.imgSrc = "s_0e1249ad-38c1-4fd9-a4f5-7360cb4464d4.jpg";
+        }
     }
 }

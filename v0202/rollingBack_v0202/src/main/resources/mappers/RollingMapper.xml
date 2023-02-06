@@ -68,7 +68,7 @@
                 update_dt = #{updateDt}
             </if>
         </set>
-        where rolling_id = #{id}
+        where rolling_id = #{rollingId}
     </update>
 
     <update id="deleteRolling">

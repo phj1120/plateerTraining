@@ -10,7 +10,7 @@ public interface RollingService {
 
     RollingInfoDTO addRolling(AddRollingDTO addRollingDTO);
 
-    void modifyRolling(ModifyRollingDTO modifyRollingDTO);
+    RollingInfoDTO modifyRolling(ModifyRollingDTO modifyRollingDTO);
 
     void deleteRolling(Long id);
 }
