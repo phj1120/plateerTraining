@@ -39,15 +39,14 @@ public class RollingServiceImpl implements RollingService {
     }
 
     @Override
-    public RollingInfoDTO getRolling(Long id) {
+    public RollingDetailDTO getRolling(Long id) {
         RollingDTO rollingDTO = rollingMapper.getRolling(id);
         if (rollingDTO == null) {
             throw new IllegalArgumentException("조회 실패");
         }
+        List<String> imagePaths = imageService.getImagePaths(rollingDTO.getRollingId());
 
-        RollingInfoDTO rollingInfoDTO = new RollingInfoDTO(rollingDTO);
-
-        return rollingInfoDTO;
+        return new RollingDetailDTO(rollingDTO, imagePaths);
     }
 
     @Override

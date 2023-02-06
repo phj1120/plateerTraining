@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface FileMapper {
     int addFile(FileDTO fileDTO);
+
     int setRollingId(Long id, List<String> names);
+
+    List<String> getImagePaths(Long id);
 }

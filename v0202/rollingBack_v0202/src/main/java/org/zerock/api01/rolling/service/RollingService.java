@@ -6,7 +6,7 @@ import org.zerock.api01.rolling.dto.*;
 public interface RollingService {
     PageResultDTO<RollingInfoDTO> getList(RollingPageRequestDTO rollingPageRequestDTO);
 
-    RollingInfoDTO getRolling(Long id);
+    RollingDetailDTO getRolling(Long id);
 
     RollingInfoDTO addRolling(AddRollingDTO addRollingDTO);
 

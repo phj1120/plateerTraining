@@ -23,10 +23,10 @@ public class RollingController {
     }
 
     @GetMapping("{id}")
-    public ResultDTO<RollingInfoDTO> getRolling(@PathVariable("id") Long id) {
-        RollingInfoDTO rollingInfoDTO = rollingService.getRolling(id);
+    public ResultDTO<RollingDetailDTO> getRolling(@PathVariable("id") Long id) {
+        RollingDetailDTO rollingDetailDTO = rollingService.getRolling(id);
 
-        return ResultDTO.<RollingInfoDTO>builder().data(rollingInfoDTO).build();
+        return ResultDTO.<RollingDetailDTO>builder().data(rollingDetailDTO).build();
     }
 
     // 추가

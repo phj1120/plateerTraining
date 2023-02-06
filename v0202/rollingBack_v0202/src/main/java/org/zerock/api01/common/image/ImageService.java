@@ -28,6 +28,10 @@ public class ImageService {
     @Value("${basePath}")
     private String basePath;
 
+    public List<String> getImagePaths(Long id) {
+        return fileMapper.getImagePaths(id);
+    }
+
     public Resource readImage(String storedName) {
         String imagePath = basePath + "/" + storedName;
         FileSystemResource file = new FileSystemResource(imagePath);
@@ -84,10 +88,9 @@ public class ImageService {
         resource.getOutputStream().write(file.getBytes());
 
         Thumbnails.of(new File(imagePath))
-                .size(160, 160)
+                .forceSize(160, 160)
                 .toFile(new File(basePath + "/s_" + storedName));
     }
-
 
     private void initFolder() {
         File folder = new File(basePath);
