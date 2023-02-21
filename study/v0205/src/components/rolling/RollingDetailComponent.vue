@@ -1,11 +1,8 @@
 <template>
-$END$
+  <h3>Rolling Detail Component</h3>
 </template>
 
-<script>
-export default {
-name: "RollingDetailComponent"
-}
+<script setup>
 </script>
 
 <style scoped>

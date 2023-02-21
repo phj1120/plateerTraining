@@ -41,6 +41,18 @@ class RollingServiceTest {
     }
 
     @Test
+    void getListSearchByOneTypeNull() {
+        String keyword = "";
+//        String keyword = null;
+        RollingPageRequestDTO rollingPageRequestDTO = new RollingPageRequestDTO(keyword, new RollingSearchType[]{RollingSearchType.TITLE});
+        PageResultDTO<RollingDTO> pageResultDTO = rollingService.getList(rollingPageRequestDTO);
+        List<RollingDTO> rollingDTOList = pageResultDTO.getDtoList();
+        for (RollingDTO rollingDTO : rollingDTOList) {
+            Assertions.assertThat(rollingDTO.getTitle()).contains(keyword);
+        }
+    }
+
+    @Test
     void getListSearchByTwoType() {
         String keyword = "박현준";
         RollingPageRequestDTO rollingPageRequestDTO = new RollingPageRequestDTO(keyword, new RollingSearchType[]{RollingSearchType.TITLE, RollingSearchType.TARGET});

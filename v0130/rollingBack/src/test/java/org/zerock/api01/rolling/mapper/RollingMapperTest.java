@@ -33,7 +33,7 @@ class RollingMapperTest {
 
     @Test
     void getRolling() {
-        RollingDTO rolling = rollingMapper.getRolling(682L);
+        RollingDTO rolling = rollingMapper.getRolling(681L);
 
         System.out.println(rolling);
     }
@@ -63,7 +63,7 @@ class RollingMapperTest {
 
     @Test
     void deleteRolling() {
-        Long rollingId = 682L;
+        Long rollingId = 681L;
         rollingMapper.deleteRolling(rollingId);
 
         rollingMapper.getRolling(rollingId);
